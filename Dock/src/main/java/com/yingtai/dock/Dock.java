@@ -106,8 +106,9 @@ public class Dock {
                     ((Icon)obj).reset();
                 }
             });
-            children.remove(tag);
-
+            if(Parament.isIconTag.get()){
+                children.remove(tag);
+            }
         });
 
         container.setOnMouseMoved(mouseEvent -> {
@@ -116,40 +117,45 @@ public class Dock {
             ObservableList<Node> children= root.getChildren();
 
             boolean selected = false;
-
+            double k,c;
+            c=1.3;
+            k=(1-c+Math.sqrt(5-2*c))/(0.5*c+1);
             for (DockItem item : dockItemList) {
                 if(item instanceof Icon){
                     Node node = item.getNode();
                     Bounds boundsInRoot = root.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
                     Bounds boundsInContainer=node.getBoundsInParent();
 
-                    double distanceX = Math.min(Math.abs(mouseContainerX - boundsInContainer.getMinX()), Math.abs(mouseContainerX - boundsInContainer.getMaxX()));
-                    System.out.println(distanceX);
-                    double percentX = 1 - distanceX / 600;
-                    ((Icon) item).update(percentX);
+                    if(Parament.isIconAnimation.get()){
+                        double distanceX=Math.abs(mouseContainerX - boundsInContainer.getCenterX());
+//                        double distanceX = Math.min(Math.abs(mouseContainerX - boundsInContainer.getMinX()), Math.abs(mouseContainerX - boundsInContainer.getMaxX()));
+                        System.out.println(distanceX);
+                        double percentX = 1 - distanceX*k/Parament.iconEnlargedWidth.get();
+                        ((Icon) item).update(percentX);
+                        System.out.println("*********"+k);
+                    }
 
-                    // 当前选中
-                    if (boundsInContainer.contains(mouseContainerX, mouseContainerY)) {
-                        selected = true;
+                    if(Parament.isIconTag.get()){
+                        if (boundsInContainer.contains(mouseContainerX, mouseContainerY)) {
+                            selected = true;
 
-                        if (!children.contains(tag)) {
-                            children.add(tag);
+                            if (!children.contains(tag)) {
+                                children.add(tag);
+                            }
+                            iconTag.setTag(((Icon) item).getTag());
+
+                            Bounds tagBounds = tag.getBoundsInLocal();
+                            tag.relocate(
+                                    boundsInRoot.getMinX() + boundsInRoot.getWidth() / 2 - tagBounds.getWidth() / 2,
+                                    boundsInRoot.getMinY() - tagBounds.getHeight()
+                            );
                         }
-                        iconTag.setTag(((Icon) item).getTag());
 
-                        Bounds tagBounds = tag.getBoundsInLocal();
-                        tag.relocate(
-                                boundsInRoot.getMinX() + boundsInRoot.getWidth() / 2 - tagBounds.getWidth() / 2,
-                                boundsInRoot.getMinY() - tagBounds.getHeight()
-                        );
+                        if (!selected) {
+                            children.remove(tag);
+                        }
                     }
-
-                    if (!selected) {
-                        children.remove(tag);
-                    }
-
                 }
-
             }
         });
 

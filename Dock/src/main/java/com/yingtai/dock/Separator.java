@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -115,7 +116,8 @@ public class Separator extends DockItem{
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("程序设置");
         stage.setScene(scene);
-
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("img/设置.png")));
+        stage.setResizable(false);
         stage.show();
         settingController.setStyle();
         Parament.isHidable=false;
@@ -138,11 +140,12 @@ public class Separator extends DockItem{
         addIconController.setEvent();
 
         Scene scene=new Scene(root);
-        scene.setFill(Color.rgb(255,255,255,0.1));
+        scene.setFill(Color.TRANSPARENT);
         stage.setTitle("添加图标");
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
-//        stage.setResizable(false);
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("img/默认应用图标.png")));
         stage.show();
         Parament.isHidable=false;
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {

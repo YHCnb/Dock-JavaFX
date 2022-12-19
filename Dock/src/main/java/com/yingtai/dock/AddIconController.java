@@ -1,12 +1,15 @@
 package com.yingtai.dock;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,6 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.DirectoryChooser;
@@ -24,6 +29,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.file.Path;
 
 public class AddIconController {
 
@@ -44,33 +50,30 @@ public class AddIconController {
     public Button rightButton32;
     public Label leftLabel;
     public Stage stage;
-//    private String realPath;
-//    private String tag;
     private File iconFile;
     private File pathFile;
     private double offsetX;
     private double offsetY;
 
-    public AddIconController(){
-        iconFile=new File("Dock/src/main/resources/com/yingtai/dock/img/启动台.png");
+    public AddIconController() throws IOException {
+        iconFile=Path.of("Dock/src/main/resources/com/yingtai/dock/img/默认应用图标.png").toFile();
     }
 
     public void setStyle() throws FileNotFoundException {
-        root.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("*************************");
-                offsetX= mouseEvent.getScreenX()-stage.getX();
-                offsetY= mouseEvent.getScreenY()-stage.getY();
-            }
-        });
-        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                stage.setX(mouseEvent.getScreenX()-offsetX);
-                stage.setY(mouseEvent.getScreenY()-offsetY);
-            }
-        });
+//        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                offsetX= mouseEvent.getScreenX()-stage.getX();
+//                offsetY= mouseEvent.getScreenY()-stage.getY();
+//            }
+//        });
+//        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                stage.setX(mouseEvent.getScreenX()-offsetX);
+//                stage.setY(mouseEvent.getScreenY()-offsetY);
+//            }
+//        });
 //        Robot robot=new Robot();
 //        WritableImage writableImage=robot.getScreenCapture(null,new Rectangle2D(0,0,
 //                Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight()));
@@ -100,29 +103,151 @@ public class AddIconController {
 
 //        root.getChildren().add(0,blur);
 //        hBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
-        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
-//        leftVBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
-//        hBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
-//        hBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
-        leftVBox.setPadding(new Insets(50,50,50,50));
+
+        Color color=Parament.glassColor.get();
+        int r,g,b;
+        if(color.getRed()*255<128) r=255;
+        else r=0;
+        if(color.getBlue()*255<128) b=255;
+        else b=0;
+        if(color.getGreen()*255<128) g=255;
+        else g=0;
+        System.out.println(color.getRed()+" "+color.getGreen()+" "+color.getBlue());
+        leftLabel.setTextFill(Color.rgb(r,g,b));
+        rightLabel1.setTextFill(Color.rgb(r,g,b));
+        rightLabel2.setTextFill(Color.rgb(r,g,b));
+        root.setBackground(new Background(new BackgroundFill(Parament.glassColor.get(),new CornerRadii(10),null)));
+        Parament.glassColor.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                Color color=Parament.glassColor.get();
+                int r,g,b;
+                if(color.getRed()*255<128) r=255;
+                else r=0;
+                if(color.getBlue()*255<128) b=255;
+                else b=0;
+                if(color.getGreen()*255<128) g=255;
+                else g=0;
+                System.out.println(color.getRed()+" "+color.getGreen()+" "+color.getBlue());
+                leftLabel.setTextFill(Color.rgb(r,g,b));
+                rightLabel1.setTextFill(Color.rgb(r,g,b));
+                rightLabel2.setTextFill(Color.rgb(r,g,b));
+                root.setBackground(new Background(new BackgroundFill(Parament.glassColor.get(),new CornerRadii(10),null)));
+            }
+        });
+
+        //region 设置页面顶部控件
+        HBox top=new HBox();
+        top.setMaxWidth(600);
+        top.setMaxHeight(30);
+        root.getChildren().add(top);
+
+        Circle circleMin=new Circle(10);
+        circleMin.setFill(Color.YELLOW);
+        Line lineMin=new Line();
+        lineMin.setStartX(-7);
+        lineMin.setStartY(0);
+        lineMin.setEndX(7);
+        lineMin.setEndY(0);
+        Group groupMin=new Group(circleMin,lineMin);
+        groupMin.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stage.setIconified(true);
+            }
+        });
+        Circle circleExit=new Circle(10);
+        circleExit.setFill(Color.RED);
+        Line lineExit1=new Line();
+        lineExit1.setStartX(-4.95);
+        lineExit1.setStartY(-4.95);
+        lineExit1.setEndX(4.95);
+        lineExit1.setEndY(4.95);
+        Line lineExit2=new Line();
+        lineExit2.setStartX(4.95);
+        lineExit2.setStartY(-4.95);
+        lineExit2.setEndX(-4.95);
+        lineExit2.setEndY(4.95);
+        Group groupExit=new Group(circleExit,lineExit1,lineExit2);
+        groupExit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stage.close();
+            }
+        });
+        top.setSpacing(20);
+        top.setAlignment(Pos.CENTER_LEFT);
+        top.setBackground(new Background(new BackgroundFill(Color.rgb(40,40,40,0.8),new CornerRadii(10,10,0,0,false),null)));
+        top.getChildren().addAll(new Group(groupExit),new Group(groupMin));
+        top.setPadding(new Insets(0,0,0,20));
+        StackPane.setAlignment(top,Pos.TOP_CENTER);
+        top.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                offsetX= mouseEvent.getScreenX()- stage.getX();
+                offsetY= mouseEvent.getScreenY()- stage.getY();
+            }
+        });
+
+        top.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stage.setX(mouseEvent.getScreenX()-offsetX);
+                stage.setY(mouseEvent.getScreenY()-offsetY);
+            }
+        });
+        //endregion
+
+        leftVBox.setPadding(new Insets(50,50,0,50));
+        leftLabel.setAlignment(Pos.CENTER);
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
         imageView.setImage(new Image(new FileInputStream(iconFile)));
-        leftLabel.setAlignment(Pos.CENTER);
+        leftVBox.setAlignment(Pos.CENTER);
         leftLabel.setFont(Font.font("微软雅黑", FontWeight.MEDIUM,12));
-        rightVBox.setPadding(new Insets(50,10,10,10));
+        leftVBox.setSpacing(5);
+        rightVBox.setPadding(new Insets(50,10,0,10));
+        rightVBox.setAlignment(Pos.CENTER);
         rightHBox1.setSpacing(10);
+        rightHBox1.setAlignment(Pos.CENTER_LEFT);
         rightHBox2.setSpacing(10);
-        rightHBox3.setSpacing(50);
-        rightHBox3.setPadding(new Insets(10,50,10,50));
+        rightHBox2.setAlignment(Pos.CENTER_LEFT);
+        rightHBox3.setSpacing(20);
+        rightHBox3.setAlignment(Pos.CENTER);
+//        rightLabel1.setAlignment(Pos.CENTER);
+//        rightLabel2.setAlignment(Pos.CENTER);
+        rightLabel2.setFont(Font.font("微软雅黑", FontWeight.MEDIUM,13));
+        rightLabel1.setFont(Font.font("微软雅黑", FontWeight.MEDIUM,13));
+
+
+        for(var node:rightHBox3.getChildren()){
+            if(node instanceof Button){
+                ((Button)node).setTextFill(Color.WHITE);
+                ((Button)node).setPrefWidth(100);
+                ((Button)node).setPrefHeight(30);
+                ((Button)node).setFont(Font.font("微软雅黑",FontWeight.MEDIUM,18));
+                ((Button)node).setBackground(new Background(new BackgroundFill(Color.rgb(11,114,231),new CornerRadii(10),null)));
+                ((Button)node).setAlignment(Pos.CENTER);
+                node.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        ((Button)node).setBackground(new Background(new BackgroundFill(Color.rgb(19,91,157),new CornerRadii(10),null)));
+                    }
+                });
+                node.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        ((Button)node).setBackground(new Background(new BackgroundFill(Color.rgb(11,114,231),new CornerRadii(10),null)));
+                    }
+                });
+            }
+        }
     }
 
     public void setEvent(){
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMouseEntered(mouseEvent -> {
             Effect effect=new Glow();
-
-
             imageView.setEffect(effect);
         });
         imageView.setOnMouseExited(mouseEvent -> {

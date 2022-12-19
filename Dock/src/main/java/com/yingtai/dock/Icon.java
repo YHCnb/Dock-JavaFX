@@ -1,6 +1,8 @@
 package com.yingtai.dock;
 
 import AppTools.TaskControler;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -53,9 +55,15 @@ public class Icon extends DockItem{
 //        dot.setStroke(Color.rgb(255,255,255,0.4));
         dot.visibleProperty().bind(isOpened);
         //endregion
-
-        group.setScaleX(1/Parament.iconEnlargeScale);
-        group.setScaleY(1/Parament.iconEnlargeScale);
+        Parament.iconWidth.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                group.setScaleX(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
+                group.setScaleY(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
+            }
+        });
+        group.setScaleX(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
+        group.setScaleY(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
 
         //嵌套两层group即可实现动画效果
         root.getChildren().addAll(new Group(group),dot);
@@ -214,14 +222,14 @@ public class Icon extends DockItem{
         } else if (percent > 1) {
             percent = 1;
         }
-        double scale = 0.3 * percent + 1/Parament.iconEnlargeScale;
+        double scale = (1+percent)*Parament.iconWidth.get()/Parament.iconEnlargedWidth.get();
         group.setScaleX(scale);
         group.setScaleY(scale);
     }
 
     public void reset(){
-        group.setScaleX(1/Parament.iconEnlargeScale);
-        group.setScaleY(1/Parament.iconEnlargeScale);
+        group.setScaleX(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
+        group.setScaleY(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
     }
 
     public Node getNode(){

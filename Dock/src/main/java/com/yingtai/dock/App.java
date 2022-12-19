@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.time.LocalTime;
 
 public class App extends Application {
     private long lastTime;
@@ -110,6 +111,18 @@ public class App extends Application {
                     lastTime=System.currentTimeMillis();
                     primaryStage.setY(Screen.getPrimary().getBounds().getHeight() - primaryStage.getHeight() - Parament.dockToBottom.doubleValue());
                 }
+
+                //region    自动变黑
+                if(Parament.isSetAutoDark.get()){
+                    if(LocalTime.now().getHour()>=21||LocalTime.now().getHour()<=7){
+                        Parament.glassColor.set(Parament.darkColor);
+                    }
+                    else {
+                        Parament.glassColor.set(Parament.lightColor);
+                    }
+                }
+                //endregion
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {

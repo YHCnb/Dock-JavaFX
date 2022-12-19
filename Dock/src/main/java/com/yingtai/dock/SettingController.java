@@ -32,6 +32,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -225,13 +226,50 @@ public class SettingController {
                 Parament.glassColor.set(Parament.darkColor);
             }
         });
+        buttonLight.setBackground(new Background(new BackgroundFill(Parament.lightColor,new CornerRadii(13),null)));
+        buttonDark.setBackground(new Background(new BackgroundFill(Parament.darkColor,new CornerRadii(13),null)));
+        buttonDark.setPrefWidth(100);
+        buttonLight.setPrefWidth(100);
+        buttonDark.setPrefHeight(40);
+        buttonLight.setPrefHeight(40);
+        buttonLight.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,15));
+        buttonDark.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,15));
+        buttonDark.setTextFill(Color.WHITE);
+        if(Parament.glassColor.get()==Parament.lightColor){
+            buttonLight.setBorder(new Border(new BorderStroke(Color.GREENYELLOW,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(2),null)));
+            buttonDark.setBorder(new Border(new BorderStroke(Color.WHITE,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(2),null)));
+        }
+        else if(Parament.glassColor.get()==Parament.darkColor){
+            buttonLight.setBorder(new Border(new BorderStroke(Color.WHITE,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(2),null)));
+            buttonDark.setBorder(new Border(new BorderStroke(Color.GREENYELLOW,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(2),null)));
+        }
+        Parament.glassColor.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                if(Parament.glassColor.get()==Parament.lightColor){
+                    buttonLight.setBorder(new Border(new BorderStroke(Color.GREENYELLOW,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(2),null)));
+                    buttonDark.setBorder(new Border(new BorderStroke(Color.WHITE,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(2),null)));
+                }
+                else if(Parament.glassColor.get()==Parament.darkColor){
+                    buttonLight.setBorder(new Border(new BorderStroke(Color.WHITE,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(2),null)));
+                    buttonDark.setBorder(new Border(new BorderStroke(Color.GREENYELLOW,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(2),null)));
+                }
+            }
+        });
+
         HBox hBox1=new HBox(buttonLight,buttonDark);
+        hBox1.setSpacing(50);
+        hBox1.setPadding(new Insets(10,25,10,25));
 
         CheckBox checkBox=new CheckBox();
         checkBox.setText("定时开启深色模式");
-
+        checkBox.selectedProperty().bindBidirectional(Parament.isSetAutoDark);
+        Tooltip tooltip=new Tooltip("晚上9点到早上7点为深色模式，其余时间为浅色模式");
+        tooltip.setShowDelay(Duration.seconds(0.1));
+        checkBox.setTooltip(tooltip);
 
         Label label=new Label("自定义外观");
+        label.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,15));
         ColorPicker colorPicker=new ColorPicker();
         colorPicker.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -240,6 +278,8 @@ public class SettingController {
             }
         });
         HBox hBox2=new HBox(label,colorPicker);
+        hBox2.setSpacing(50);
+        hBox2.setPadding(new Insets(10,0,10,0));
 
         rightVbox.getChildren().clear();
         rightVbox.getChildren().addAll(rectangle,hBox1,checkBox,hBox2);
@@ -286,23 +326,16 @@ public class SettingController {
         label3.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,15));
         Slider slider3=new Slider(1,10,5);
 
-        Label label4=new Label("Dock栏距离屏幕底部距离   "+(int)Parament.dockToBottom.get());
-        label4.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,15));
-        Slider slider4=new Slider(0,200,Parament.dockToBottom.get());
-        slider4.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                label4.setText("Dock栏距离屏幕底部距离   "+(int)slider4.getValue());
-            }
-        });
-        slider4.setMajorTickUnit(50);
-        slider4.setMinorTickCount(1);
-        slider4.setShowTickMarks(true);
-        slider4.setShowTickLabels(true);
-        slider4.valueProperty().bindBidirectional(Parament.dockToBottom);
+        CheckBox checkBox1=new CheckBox();
+        checkBox1.setText("开启鼠标滑过时动画");
+        checkBox1.selectedProperty().bindBidirectional(Parament.isIconAnimation);
+
+        CheckBox checkBox2=new CheckBox();
+        checkBox2.setText("显示图标提示");
+        checkBox2.selectedProperty().bindBidirectional(Parament.isIconTag);
 
         rightVbox.getChildren().clear();
-        rightVbox.getChildren().addAll(label1,slider1,label2,slider2,label3,slider3,label4,slider4);
+        rightVbox.getChildren().addAll(label1,slider1,label2,slider2,label3,slider3,checkBox1,checkBox2);
     }
 
     public void showButton3Content() {

@@ -18,26 +18,26 @@
          <children>
             <VBox prefHeight="300" prefWidth="300" fx:id="leftVBox">
                <children>
-                  <ImageView fitHeight="250" fitWidth="250" pickOnBounds="true" preserveRatio="true" fx:id="imageView"/>
-                  <Label prefHeight="30" prefWidth="250" text="单击以更换图标图片" fx:id="leftLabel"/>
+                  <ImageView fitHeight="200" fitWidth="200" pickOnBounds="true" preserveRatio="true" fx:id="imageView"/>
+                  <Label text="单击以更换图标图片" fx:id="leftLabel"/>
                </children>
             </VBox>
             <VBox prefHeight="300" prefWidth="300" fx:id="rightVBox">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" fx:id="rightHBox1">
+                  <HBox prefHeight="80" prefWidth="200.0" fx:id="rightHBox1">
                      <children>
                         <Label text="名称" fx:id="rightLabel1"/>
                         <TextField fx:id="rightTextField1"/>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" fx:id="rightHBox2">
+                  <HBox prefHeight="80" prefWidth="200.0" fx:id="rightHBox2">
                      <children>
                         <Label text="路径" fx:id="rightLabel2"/>
                         <TextField fx:id="rightTextField2"/>
                         <Button mnemonicParsing="false" text="···" fx:id="rightButton2"/>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" fx:id="rightHBox3">
+                  <HBox prefHeight="80" prefWidth="200.0" fx:id="rightHBox3">
                      <children>
                         <Button mnemonicParsing="false" text="取消" fx:id="rightButton31"/>
                         <Button mnemonicParsing="false" text="确定" fx:id="rightButton32"/>

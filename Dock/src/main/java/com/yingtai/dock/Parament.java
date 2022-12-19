@@ -28,4 +28,8 @@ public class Parament {
     public static boolean isHidable=true;
 
     public static IntegerProperty dataModel=new SimpleIntegerProperty(0);
+
+    public static BooleanProperty isIconTag=new SimpleBooleanProperty(true);
+    public static BooleanProperty isIconAnimation=new SimpleBooleanProperty(true);
+
 }
