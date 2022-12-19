@@ -26,6 +26,7 @@ public class Config {
             String realPath=null;
             int i=0;
             //添加dockItem
+            dockItemList.add(new Explorer());
             while((line=bufferedReader.readLine())!=null){
                 if(line.startsWith("tag=")){
                     tag=line.substring(4);
@@ -47,6 +48,7 @@ public class Config {
                 dockItemList.add(new Icon(tag,realPath,new Image(new FileInputStream("Dock/src/main/resources/com/yingtai/dock/img/"+tag+".png"))));
             }
             dockItemList.add(new Clock());
+            dockItemList.add(new TrashCan());
             return dockItemList;
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

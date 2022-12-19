@@ -53,24 +53,24 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "E:/JAVA/dock/Dock/src/main/resources/com/yingtai/dock/img",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.42643678",
-    "settings.editor.selected.configurable": "settings.sync"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/JAVA/dock/Dock/src/main/resources/com/yingtai/dock/img&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.42643678&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\JAVA\dock\Dock\src\main\resources\com\yingtai\dock\img" />
@@ -90,12 +90,12 @@
       <recent name="com.yingtai.dock" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.com.yingtai.dock.Main">
+  <component name="RunManager" selected="应用程序.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.App" />
-      <module name="Dock" />
+      <module name="dock" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.yingtai.dock.*" />
@@ -167,10 +167,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.App" />
         <item itemvalue="应用程序.com.yingtai.dock.Main" />
         <item itemvalue="应用程序.Main" />
         <item itemvalue="应用程序.test" />
-        <item itemvalue="应用程序.App" />
         <item itemvalue="应用程序.main.java.com.yingtai.dock.App" />
       </list>
     </recent_temporary>
@@ -192,6 +192,7 @@
       <workItem from="1671204816312" duration="147000" />
       <workItem from="1671286603584" duration="3950000" />
       <workItem from="1671290588810" duration="297000" />
+      <workItem from="1671450780234" duration="41000" />
     </task>
     <task id="LOCAL-00001" summary="目前已完成部分">
       <created>1670580933122</created>
