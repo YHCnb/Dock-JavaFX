@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="root" prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yingtai.dock.SettingController">
+   <children>
+      <HBox fx:id="hBox" prefHeight="400" prefWidth="600">
+         <children>
+            <ScrollPane fx:id="leftScrollPane" hbarPolicy="NEVER" prefHeight="400" prefWidth="200">
+               <content>
+                  <VBox fx:id="leftVBox" prefHeight="400" prefWidth="200">
+                     <children>
+                        <Button fx:id="button1" mnemonicParsing="false" prefHeight="30.0" prefWidth="200" text="全局设置" />
+                        <Label prefHeight="34.0" prefWidth="200" text="Dock栏" />
+                        <Button fx:id="button2" mnemonicParsing="false" onAction="#showButton2Content" prefHeight="30.0" prefWidth="200" text="通用" />
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="200" text="高级" />
+                        <Label prefHeight="34.0" prefWidth="200" text="顶部栏" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200" text="Button" />
+                        <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="200" text="Button" />
+                        <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="200" text="Button" />
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="200" text="Button" />
+                        <Label prefHeight="37.0" prefWidth="200" text="关于" />
+                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="200" text="关于" />
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="400" prefWidth="400">
+               <content>
+                  <VBox fx:id="rightVbox" prefHeight="400" prefWidth="400" />
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+   </children>
+</StackPane>

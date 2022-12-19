@@ -1,0 +1,739 @@
+Index: Dock/src/main/java/com/yingtai/dock/Separator.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yingtai.dock;\r\n\r\nimport com.kieferlam.javafxblur.Blur;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.event.EventHandler;\r\nimport javafx.event.EventType;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.geometry.Insets;\r\nimport javafx.geometry.Orientation;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.ContextMenu;\r\nimport javafx.scene.control.MenuItem;\r\nimport javafx.scene.control.SeparatorMenuItem;\r\nimport javafx.scene.input.ContextMenuEvent;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.shape.Line;\r\nimport javafx.stage.Stage;\r\nimport javafx.stage.StageStyle;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class Separator extends DockItem{\r\n    private Line line;\r\n\r\n    public Separator(){\r\n        line=new Line();\r\n        root=new StackPane();\r\n        root.setMaxSize(Region.USE_PREF_SIZE,Region.USE_PREF_SIZE);\r\n        root.setAlignment(Pos.CENTER);\r\n        root.getChildren().add(line);\r\n        root.setPadding(new Insets(0,20,0,20));\r\n        root.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE,null,null)));\r\n\r\n        line.setStartX(0);\r\n        line.setStartY(0);\r\n        line.setEndX(0);\r\n        line.endYProperty().bind(Parament.iconWidth);\r\n        line.setStrokeWidth(1.5);\r\n\r\n        //设置右键菜单\r\n        root.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {\r\n            @Override\r\n            public void handle(ContextMenuEvent contextMenuEvent) {\r\n                ContextMenu contextMenu=new ContextMenu();\r\n                MenuItem menuItem1 = new MenuItem(\"添加图标\");\r\n                menuItem1.setOnAction(new EventHandler<ActionEvent>() {\r\n                    @Override\r\n                    public void handle(ActionEvent actionEvent) {\r\n                        try {\r\n                            showAddIconView();\r\n                        } catch (IOException e) {\r\n                            throw new RuntimeException(e);\r\n                        }\r\n                    }\r\n                });\r\n                MenuItem menuItem2 = new MenuItem(\"添加分隔符\");\r\n                menuItem2.setOnAction(new EventHandler<ActionEvent>() {\r\n                    @Override\r\n                    public void handle(ActionEvent actionEvent) {\r\n                        Dock.addIcon(-2,new Separator());\r\n                    }\r\n                });\r\n                MenuItem menuItemSep=new SeparatorMenuItem();\r\n                MenuItem menuItem3 = new MenuItem(\"隐藏显示任务栏\");\r\n                MenuItem menuItem4 = new MenuItem(\"程序设置\");\r\n                menuItem4.setOnAction(new EventHandler<ActionEvent>() {\r\n                    @Override\r\n                    public void handle(ActionEvent actionEvent) {\r\n                        try {\r\n                            menuItem4.setDisable(true);\r\n                            showSettingView();\r\n//                            menuItem4.setDisable(false);\r\n                        } catch (IOException e) {\r\n                            throw new RuntimeException(e);\r\n                        }\r\n                    }\r\n                });\r\n                MenuItem menuItem5 = new MenuItem(\"结束程序\");\r\n                menuItem5.setOnAction(new EventHandler<ActionEvent>() {\r\n                    @Override\r\n                    public void handle(ActionEvent actionEvent) {\r\n                        System.exit(0);\r\n                    }\r\n                });\r\n\r\n                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItemSep,menuItem3,menuItem4,menuItem5);\r\n                contextMenu.setAutoFix(true);\r\n                contextMenu.setStyle(\"-fx-background-radius: 0.5em;\");\r\n\r\n                Node node = contextMenuEvent.getPickResult().getIntersectedNode();\r\n\r\n                contextMenu.show(node, javafx.geometry.Side.BOTTOM, 0, 0);\r\n            }\r\n        });\r\n\r\n\r\n\r\n    }\r\n\r\n    private void showSettingView() throws IOException {\r\n        FXMLLoader fxmlLoader=new FXMLLoader(this.getClass().getResource(\"setting-view.fxml\"));\r\n        Pane root=fxmlLoader.load();\r\n        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));\r\n        SettingController settingController=fxmlLoader.getController();\r\n        settingController.setStyle();\r\n        Scene scene=new Scene(root);\r\n//        scene.getStylesheets().add(\"/com/yingtai/dock/style.css\");\r\n        scene.setFill(Color.TRANSPARENT);\r\n        Stage stage=new Stage();\r\n\r\n//        stage.initStyle(StageStyle.TRANSPARENT);\r\n        stage.setTitle(\"程序设置\");\r\n        stage.setScene(scene);\r\n        stage.showAndWait();\r\n    }\r\n\r\n    private void showAddIconView() throws IOException {\r\n        FXMLLoader fxmlLoader=new FXMLLoader(this.getClass().getResource(\"addIcon-view.fxml\"));\r\n        Pane root=fxmlLoader.load();\r\n        AddIconController addIconController=fxmlLoader.getController();\r\n        Stage stage=new Stage();\r\n        addIconController.setStage(stage);\r\n        addIconController.setStyle();\r\n        addIconController.setEvent();\r\n\r\n        Scene scene=new Scene(root);\r\n        scene.setFill(Color.rgb(255,255,255,0.1));\r\n        stage.setTitle(\"添加图标\");\r\n        stage.setScene(scene);\r\n        stage.initStyle(StageStyle.TRANSPARENT);\r\n//        stage.setResizable(false);\r\n        stage.show();\r\n        Blur.applyBlur(stage,Blur.ACRYLIC);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/src/main/java/com/yingtai/dock/Separator.java b/Dock/src/main/java/com/yingtai/dock/Separator.java
+--- a/Dock/src/main/java/com/yingtai/dock/Separator.java	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/Dock/src/main/java/com/yingtai/dock/Separator.java	(date 1671207975240)
+@@ -1,6 +1,6 @@
+ package com.yingtai.dock;
+ 
+-import com.kieferlam.javafxblur.Blur;
++//import com.kieferlam.javafxblur.Blur;
+ import javafx.event.ActionEvent;
+ import javafx.event.EventHandler;
+ import javafx.event.EventType;
+@@ -134,6 +134,6 @@
+         stage.initStyle(StageStyle.TRANSPARENT);
+ //        stage.setResizable(false);
+         stage.show();
+-        Blur.applyBlur(stage,Blur.ACRYLIC);
++//        Blur.applyBlur(stage,Blur.ACRYLIC);
+     }
+ }
+Index: Dock/src/main/java/com/yingtai/dock/DockItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yingtai.dock;\r\n\r\nimport javafx.scene.Node;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.layout.StackPane;\r\n\r\npublic class DockItem {\r\n    protected String tag;\r\n    protected StackPane root;\r\n    public Node getNode(){\r\n        return root;\r\n    }\r\n//    protected abstract void setRightButtonMenu();\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/src/main/java/com/yingtai/dock/DockItem.java b/Dock/src/main/java/com/yingtai/dock/DockItem.java
+--- a/Dock/src/main/java/com/yingtai/dock/DockItem.java	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/Dock/src/main/java/com/yingtai/dock/DockItem.java	(date 1671292138776)
+@@ -4,7 +4,7 @@
+ import javafx.scene.control.Label;
+ import javafx.scene.layout.StackPane;
+ 
+-public class DockItem {
++public class DockItem extends Node{
+     protected String tag;
+     protected StackPane root;
+     public Node getNode(){
+Index: Dock/src/main/java/com/yingtai/dock/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yingtai.dock;\r\n\r\nimport com.kieferlam.javafxblur.Blur;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        Blur.loadBlurLibrary();\r\n        App.main(args);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/src/main/java/com/yingtai/dock/Main.java b/Dock/src/main/java/com/yingtai/dock/Main.java
+--- a/Dock/src/main/java/com/yingtai/dock/Main.java	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/Dock/src/main/java/com/yingtai/dock/Main.java	(date 1671207975247)
+@@ -1,10 +1,10 @@
+ package com.yingtai.dock;
+ 
+-import com.kieferlam.javafxblur.Blur;
++//import com.kieferlam.javafxblur.Blur;
+ 
+ public class Main {
+     public static void main(String[] args) {
+-        Blur.loadBlurLibrary();
++//        Blur.loadBlurLibrary();
+         App.main(args);
+     }
+ }
+Index: Dock/src/main/java/com/yingtai/dock/Icon.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yingtai.dock;\r\n\r\nimport AppTools.TaskControler;\r\nimport javafx.beans.property.BooleanProperty;\r\nimport javafx.beans.property.SimpleBooleanProperty;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.event.EventHandler;\r\nimport javafx.geometry.Insets;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.Cursor;\r\nimport javafx.scene.Group;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.control.ContextMenu;\r\nimport javafx.scene.control.MenuItem;\r\nimport javafx.scene.control.SeparatorMenuItem;\r\nimport javafx.scene.image.*;\r\nimport javafx.scene.input.ContextMenuEvent;\r\nimport javafx.scene.input.MouseButton;\r\nimport javafx.scene.layout.Background;\r\nimport javafx.scene.layout.BackgroundFill;\r\nimport javafx.scene.layout.Region;\r\nimport javafx.scene.layout.StackPane;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.shape.Circle;\r\n\r\nimport java.io.File;\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class Icon extends DockItem{\r\n    private String realPath;\r\n    protected StackPane root;\r\n    protected BooleanProperty isOpened;\r\n    protected Group group;\r\n\r\n    public Icon(){\r\n        group=new Group();\r\n        root=new StackPane();\r\n        root.setMaxSize(Region.USE_PREF_SIZE,Region.USE_PREF_SIZE);\r\n        root.setAlignment(Pos.BOTTOM_CENTER);\r\n        root.setCursor(Cursor.HAND);\r\n        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));\r\n        //root.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,new BorderWidths(2))));\r\n        root.setPadding(new Insets(15,5,10,5));\r\n\r\n        //region 程序打开圆点标志\r\n        isOpened=new SimpleBooleanProperty(false);\r\n        Circle dot=new Circle(Parament.iconOpenedDot);\r\n        dot.setFill(Color.rgb(0,0,0,0.8));\r\n        dot.setTranslateY(5);\r\n//        dot.setStroke(Color.rgb(255,255,255,0.4));\r\n        dot.visibleProperty().bind(isOpened);\r\n        //endregion\r\n\r\n        group.setScaleX(1/Parament.iconEnlargeScale);\r\n        group.setScaleY(1/Parament.iconEnlargeScale);\r\n\r\n        //嵌套两层group即可实现动画效果\r\n        root.getChildren().addAll(new Group(group),dot);\r\n\r\n    }\r\n    public Icon(String tag, String realPath, Image image){\r\n        this();\r\n        this.tag=tag;\r\n        this.realPath=realPath;\r\n        ImageView imageView=new ImageView(image);\r\n        group.getChildren().add(imageView);\r\n        imageView.fitWidthProperty().bind(Parament.iconWidth.multiply(Parament.iconEnlargeScale));\r\n        imageView.fitHeightProperty().bind(Parament.iconWidth.multiply(Parament.iconEnlargeScale));\r\n\r\n\r\n        //region 设置图标圆角\r\n//        Rectangle rectangle=new Rectangle(Parament.iconWidth,Parament.iconWidth);\r\n//        rectangle.setArcHeight(Parament.iconArcWidth);\r\n//        rectangle.setArcWidth(Parament.iconArcWidth);\r\n//        imageView.setClip(rectangle);\r\n        //endregion\r\n\r\n        //region 设置图标按压时变暗特性\r\n        int width=(int)image.getWidth();\r\n        int height=(int)image.getHeight();\r\n        WritableImage writableImageImage=new WritableImage(width, height);\r\n        PixelReader pixelReader=image.getPixelReader();\r\n        PixelWriter pixelWriter=writableImageImage.getPixelWriter();\r\n        for(int y=0;y<height;y++) {\r\n            for(int x=0;x<width;x++) {\r\n                Color color=pixelReader.getColor(x,y);\r\n                pixelWriter.setColor(x,y,color.darker());\r\n            }\r\n        }\r\n        imageView.setOnMousePressed(mouseEvent -> {\r\n            imageView.setImage(writableImageImage);\r\n        });\r\n        imageView.setOnMouseReleased(mouseEvent -> {\r\n            imageView.setImage(image);\r\n        });\r\n        //endregion\r\n\r\n        //region 设置图标点击事件\r\n        imageView.setOnMouseClicked(mouseEvent -> {\r\n            if(mouseEvent.getButton()== MouseButton.PRIMARY){\r\n                if(isOpened.getValue()){\r\n                    //程序已打开，显示程序即可\r\n                }\r\n                else{\r\n                    //程序未打开，打开程序\r\n                    new Thread(()->{\r\n                        try {\r\n                            Runtime.getRuntime().exec(realPath);\r\n                        } catch (IOException e) {\r\n                            throw new RuntimeException(e);\r\n                        }\r\n                        System.out.println(\"程序已打开\");\r\n                    }).run();\r\n                    isOpened.setValue(true);\r\n                }\r\n            }\r\n        });\r\n        //endregion\r\n        setRightButtonMenu();\r\n\r\n    }\r\n\r\n    private void setRightButtonMenu(){\r\n        root.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {\r\n            @Override\r\n            public void handle(ContextMenuEvent contextMenuEvent) {\r\n                ContextMenu contextMenu=new ContextMenu();\r\n                MenuItem menuItem1 = new MenuItem(\"设置此图标\");\r\n                menuItem1.setOnAction(new EventHandler<ActionEvent>() {\r\n                    @Override\r\n                    public void handle(ActionEvent actionEvent) {\r\n                        //要做的事情\r\n                    }\r\n                });\r\n                MenuItem menuItem2 = new MenuItem(\"从Dock栏中移除\");\r\n                menuItem2.setOnAction(new EventHandler<ActionEvent>() {\r\n                    @Override\r\n                    public void handle(ActionEvent actionEvent) {\r\n                        //要做的事情\r\n                    }\r\n                });\r\n                MenuItem menuItemSep=new SeparatorMenuItem();\r\n                MenuItem menuItem3 = new MenuItem(\"打开文件所在位置\");\r\n                MenuItem menuItem4 = new MenuItem(\"以管理员模式运行\");\r\n                menuItem4.setOnAction(new EventHandler<ActionEvent>() {\r\n                    @Override\r\n                    public void handle(ActionEvent actionEvent) {\r\n                        //要做的事情\r\n                    }\r\n                });\r\n                MenuItem menuItem5 = new MenuItem(\"打开\");\r\n                menuItem5.setOnAction(new EventHandler<ActionEvent>() {\r\n                    @Override\r\n                    public void handle(ActionEvent actionEvent) {\r\n                        new Thread(()->{\r\n                            try {\r\n                                Runtime.getRuntime().exec(realPath);\r\n                            } catch (IOException e) {\r\n                                throw new RuntimeException(e);\r\n                            }\r\n                            System.out.println(\"程序已打开\");\r\n                        }).run();\r\n                        isOpened.setValue(true);\r\n                    }\r\n                });\r\n\r\n                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItemSep,menuItem3,menuItem4,menuItem5);\r\n                contextMenu.setAutoFix(true);\r\n                contextMenu.setStyle(\"-fx-background-radius: 0.5em;\");\r\n\r\n                Node node = contextMenuEvent.getPickResult().getIntersectedNode();\r\n\r\n                contextMenu.show(node, javafx.geometry.Side.BOTTOM, 0, 0);\r\n            }\r\n        });\r\n    }\r\n//    public Icon(String tag, String realPath, javafx.scene.image.Image image){\r\n//        this.tag=tag;\r\n//        this.realPath=realPath;\r\n////        isOpened.setValue(false);\r\n//        ImageView imageView=new ImageView(image);\r\n//        group=new Group(imageView);\r\n//        imageView.fitWidthProperty().bind(Parament.iconWidth.multiply(Parament.iconEnlargeScale));\r\n//        imageView.fitHeightProperty().bind(Parament.iconWidth.multiply(Parament.iconEnlargeScale));\r\n//        group.setScaleX(1/Parament.iconEnlargeScale);\r\n//        group.setScaleY(1/Parament.iconEnlargeScale);\r\n//\r\n//        //region 设置图标圆角\r\n////        Rectangle rectangle=new Rectangle(Parament.iconWidth,Parament.iconWidth);\r\n////        rectangle.setArcHeight(Parament.iconArcWidth);\r\n////        rectangle.setArcWidth(Parament.iconArcWidth);\r\n////        imageView.setClip(rectangle);\r\n//        //endregion\r\n//\r\n//        //region 程序打开圆点标志\r\n//        isOpened=new SimpleBooleanProperty(false);\r\n//        Circle dot=new Circle(Parament.iconOpenedDot);\r\n//        dot.setFill(Color.rgb(0,0,0,0.8));\r\n//        dot.setTranslateY(5);\r\n////        dot.setStroke(Color.rgb(255,255,255,0.4));\r\n//        dot.visibleProperty().bind(isOpened);\r\n//        //endregion\r\n//\r\n//        //嵌套两层group即可实现动画效果\r\n//        root=new StackPane(new Group(group),dot);\r\n//        root.setMaxSize(Region.USE_PREF_SIZE,Region.USE_PREF_SIZE);\r\n//        root.setAlignment(Pos.BOTTOM_CENTER);\r\n//        root.setCursor(Cursor.HAND);\r\n//        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));\r\n//        //root.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,new BorderWidths(2))));\r\n//        root.setPadding(new Insets(15,5,10,5));\r\n//\r\n//        //region 设置图标按压时变暗特性\r\n//        int width=(int)image.getWidth();\r\n//        int height=(int)image.getHeight();\r\n//        WritableImage writableImageImage=new WritableImage(width, height);\r\n//        PixelReader pixelReader=image.getPixelReader();\r\n//        PixelWriter pixelWriter=writableImageImage.getPixelWriter();\r\n//        for(int y=0;y<height;y++) {\r\n//            for(int x=0;x<width;x++) {\r\n//                Color color=pixelReader.getColor(x,y);\r\n//                pixelWriter.setColor(x,y,color.darker());\r\n//            }\r\n//        }\r\n//        imageView.setOnMousePressed(mouseEvent -> {\r\n//            imageView.setImage(writableImageImage);\r\n//        });\r\n//        imageView.setOnMouseReleased(mouseEvent -> {\r\n//            imageView.setImage(image);\r\n//        });\r\n//        //endregion\r\n//\r\n//        //region 设置图标点击事件\r\n////        imageView.setOnMouseClicked(mouseEvent -> {\r\n////            if(isOpened.getValue()){\r\n////                //程序已打开，显示程序即可\r\n////            }\r\n////            else{\r\n////                //程序未打开，打开程序\r\n////                new Thread(()->{\r\n////                    try {\r\n////                        Runtime.getRuntime().exec(realPath);\r\n////                    } catch (IOException e) {\r\n////                        throw new RuntimeException(e);\r\n////                    }\r\n////                    System.out.println(\"程序已打开\");\r\n////                }).run();\r\n////                isOpened.setValue(true);\r\n////            }\r\n////        });\r\n//        //endregion\r\n//\r\n//        root.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {\r\n//            @Override\r\n//            public void handle(ContextMenuEvent contextMenuEvent) {\r\n//                ContextMenu contextMenu=new ContextMenu();\r\n//                MenuItem menuItem1 = new MenuItem(\"设置此图标\");\r\n//                menuItem1.setOnAction(new EventHandler<ActionEvent>() {\r\n//                    @Override\r\n//                    public void handle(ActionEvent actionEvent) {\r\n//                        //要做的事情\r\n//                    }\r\n//                });\r\n//                MenuItem menuItem2 = new MenuItem(\"从Dock栏中移除\");\r\n//                menuItem2.setOnAction(new EventHandler<ActionEvent>() {\r\n//                    @Override\r\n//                    public void handle(ActionEvent actionEvent) {\r\n//                        //要做的事情\r\n//                    }\r\n//                });\r\n//                MenuItem menuItemSep=new SeparatorMenuItem();\r\n//                MenuItem menuItem3 = new MenuItem(\"打开文件所在位置\");\r\n//                MenuItem menuItem4 = new MenuItem(\"以管理员模式运行\");\r\n//                menuItem4.setOnAction(new EventHandler<ActionEvent>() {\r\n//                    @Override\r\n//                    public void handle(ActionEvent actionEvent) {\r\n//                        //要做的事情\r\n//                    }\r\n//                });\r\n//                MenuItem menuItem5 = new MenuItem(\"打开\");\r\n//                menuItem5.setOnAction(new EventHandler<ActionEvent>() {\r\n//                    @Override\r\n//                    public void handle(ActionEvent actionEvent) {\r\n//                        new Thread(()->{\r\n//                            try {\r\n//                                Runtime.getRuntime().exec(realPath);\r\n//                            } catch (IOException e) {\r\n//                                throw new RuntimeException(e);\r\n//                            }\r\n//                            System.out.println(\"程序已打开\");\r\n//                        }).run();\r\n//                        isOpened.setValue(true);\r\n//                    }\r\n//                });\r\n//\r\n//                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItemSep,menuItem3,menuItem4,menuItem5);\r\n//                contextMenu.setAutoFix(true);\r\n//                contextMenu.setStyle(\"-fx-background-radius: 0.5em;\");\r\n//\r\n//                Node node = contextMenuEvent.getPickResult().getIntersectedNode();\r\n//\r\n//                contextMenu.show(node, javafx.geometry.Side.BOTTOM, 0, 0);\r\n//            }\r\n//        });\r\n//    }\r\n\r\n    public void update(double percent) {\r\n        if (percent < 0) {\r\n            reset();\r\n            return;\r\n        } else if (percent > 1) {\r\n            percent = 1;\r\n        }\r\n        double scale = 0.3 * percent + 1/Parament.iconEnlargeScale;\r\n        group.setScaleX(scale);\r\n        group.setScaleY(scale);\r\n    }\r\n\r\n    public void reset(){\r\n        group.setScaleX(1/Parament.iconEnlargeScale);\r\n        group.setScaleY(1/Parament.iconEnlargeScale);\r\n    }\r\n\r\n    public Node getNode(){\r\n        return root;\r\n    }\r\n\r\n    public String getTag(){\r\n        return tag;\r\n    }\r\n\r\n    public String getRealPath(){\r\n        return realPath;\r\n    }\r\n\r\n    public void runInManagerMode(){//以管理者模式运行\r\n        if(isOpened.getValue()) return;\r\n        File file=new File(realPath);\r\n        if(!file.isFile()){\r\n            System.out.println(\"这不是一个有效的文件！！！！\");//可以加提醒框\r\n            return;\r\n        }\r\n        try {\r\n            String programName = file.getName();\r\n            List<String> list = new ArrayList<String>();\r\n            list.add(\"cmd.exe\");\r\n            list.add(\"/c\");\r\n            list.add(\"start\");\r\n            list.add(\"\\\"\" + programName + \"\\\"\");\r\n            list.add(\"\\\"\" + file.getPath() + \"\\\"\");\r\n            ProcessBuilder pBuilder = new ProcessBuilder(list);\r\n            pBuilder.start();\r\n            isOpened=new SimpleBooleanProperty(true);\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n    public void run(){//一般形式运行\r\n        if(isOpened.getValue()) return;\r\n        try {\r\n            new ProcessBuilder(realPath).start();\r\n            isOpened=new SimpleBooleanProperty(true);\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void openFolder(){//打开所在文件夹\r\n        int index=realPath.length()-1;\r\n        while (index>=0){\r\n            if(realPath.charAt(index)==File.separatorChar)\r\n                break;\r\n            index--;\r\n        }\r\n        String target =realPath.substring(0,index);\r\n//        try {\r\n//            java.awt.Desktop.getDesktop().open(new File(target));\r\n//        } catch (IOException e) {\r\n//            throw new RuntimeException(e);\r\n//        }\r\n        try {\r\n            new ProcessBuilder(target).start();\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void quit(){//退出已经打开的程序\r\n        if(!isOpened.getValue()) return;\r\n        TaskControler.killTask(tag);\r\n        isOpened=new SimpleBooleanProperty(false);\r\n    }\r\n\r\n    public void reload(){//重启程序\r\n        if (isOpened.getValue()){\r\n            this.quit();\r\n            this.run();\r\n        }else {\r\n            isOpened=new SimpleBooleanProperty(true);\r\n            this.run();\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/src/main/java/com/yingtai/dock/Icon.java b/Dock/src/main/java/com/yingtai/dock/Icon.java
+--- a/Dock/src/main/java/com/yingtai/dock/Icon.java	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/Dock/src/main/java/com/yingtai/dock/Icon.java	(date 1671290890956)
+@@ -16,10 +16,7 @@
+ import javafx.scene.image.*;
+ import javafx.scene.input.ContextMenuEvent;
+ import javafx.scene.input.MouseButton;
+-import javafx.scene.layout.Background;
+-import javafx.scene.layout.BackgroundFill;
+-import javafx.scene.layout.Region;
+-import javafx.scene.layout.StackPane;
++import javafx.scene.layout.*;
+ import javafx.scene.paint.Color;
+ import javafx.scene.shape.Circle;
+ 
+@@ -40,8 +37,8 @@
+         root.setMaxSize(Region.USE_PREF_SIZE,Region.USE_PREF_SIZE);
+         root.setAlignment(Pos.BOTTOM_CENTER);
+         root.setCursor(Cursor.HAND);
+-        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
+-        //root.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,new BorderWidths(2))));
++//        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
++        root.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,new BorderWidths(2))));
+         root.setPadding(new Insets(15,5,10,5));
+ 
+         //region 程序打开圆点标志
+Index: Dock/src/main/java/com/yingtai/dock/Dock.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yingtai.dock;\r\n\r\nimport javafx.animation.AnimationTimer;\r\nimport javafx.application.Platform;\r\nimport javafx.beans.binding.Bindings;\r\nimport javafx.beans.binding.ObjectBinding;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.geometry.Bounds;\r\nimport javafx.geometry.Insets;\r\nimport javafx.geometry.Pos;\r\nimport javafx.geometry.Rectangle2D;\r\nimport javafx.scene.Group;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.SnapshotParameters;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.effect.BoxBlur;\r\nimport javafx.scene.effect.DropShadow;\r\nimport javafx.scene.effect.GaussianBlur;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.image.WritableImage;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.robot.Robot;\r\nimport javafx.scene.shape.Polygon;\r\nimport javafx.scene.shape.Rectangle;\r\nimport javafx.scene.shape.Shape;\r\n\r\nimport java.util.List;\r\nimport java.util.Objects;\r\nimport java.util.Stack;\r\nimport java.util.stream.Collectors;\r\n\r\npublic class Dock {\r\n    private StackPane root;\r\n    private static HBox container;\r\n    private Rectangle glass;\r\n    private static List<DockItem> dockItemList;\r\n\r\n    public Dock(){\r\n        root=new StackPane();\r\n        root.setPadding(new Insets(0));\r\n        root.setMaxSize(Region.USE_PREF_SIZE,Region.USE_PREF_SIZE);\r\n       // root.setBackground(new Background(new BackgroundFill(Color.rgb(12,12,12,0.5),null,null)));\r\n\r\n        //region container是放置图标的容器\r\n        container=new HBox();\r\n        container.setAlignment(Pos.BOTTOM_CENTER);\r\n        container.setMaxSize(Region.USE_PREF_SIZE,Region.USE_PREF_SIZE);\r\n       // container.setBackground(new Background(new BackgroundFill(Color.rgb(233,23,234,0.3),null,null)));\r\n        container.setPadding(new Insets(0,0,0,0));\r\n        //endregion\r\n\r\n        //region 玻璃板\r\n        glass=new Rectangle();\r\n\r\n        glass.setX(root.getPadding().getLeft()-Parament.iconSpacing);\r\n        glass.yProperty().bind(root.heightProperty().subtract(glass.heightProperty()).subtract(root.getPadding().getBottom()));\r\n        glass.widthProperty().bind(container.widthProperty().add(Parament.iconSpacing*2));\r\n        glass.heightProperty().bind(Parament.iconWidth.add(Parament.iconSpacing*2));\r\n        //\r\n        glass.setManaged(false);\r\n        glass.setFill(Color.rgb(255,255,255,0.6));\r\n        //可以不用改为绑定\r\n        glass.arcWidthProperty().bind(Parament.dockArcWidth);\r\n        glass.arcHeightProperty().bind(Parament.dockArcWidth);\r\n        //endregion\r\n\r\n        //region 玻璃板特效\r\n        Robot robot=new Robot();\r\n        WritableImage writableImage=robot.getScreenCapture(null,new Rectangle2D(0,0,1920,1080));\r\n        ImageView imageView=new ImageView(writableImage);\r\n        AnimationTimer animationTimer=new AnimationTimer() {\r\n            @Override\r\n            public void handle(long l) {\r\n                var point=glass.localToScreen(glass.getX(),glass.getY());\r\n                imageView.setViewport(new Rectangle2D(point.getX(),point.getY(),glass.getWidth(), glass.getHeight()));\r\n            }\r\n        };\r\n        imageView.fitHeightProperty().bind(glass.heightProperty());\r\n        imageView.fitWidthProperty().bind(glass.widthProperty());\r\n        BoxBlur boxBlur=new BoxBlur();\r\n        boxBlur.setHeight(255);\r\n        boxBlur.setWidth(255);\r\n        boxBlur.setIterations(3);\r\n        imageView.setEffect(boxBlur);\r\n\r\n        //endregion\r\n\r\n        root.getChildren().addAll(glass,container);\r\n\r\n        setEvent();\r\n        Platform.runLater(()->{\r\n            container.getChildren().forEach(this::makeDraggable);\r\n        });\r\n\r\n\r\n    }\r\n\r\n    //设置鼠标移动动画\r\n    private void setEvent(){\r\n        IconTag iconTag=new IconTag();\r\n        Node tag=iconTag.getNode();\r\n        tag.setManaged(false);\r\n\r\n        container.setOnMouseExited(mouseEvent -> {\r\n            ObservableList<Node> children= root.getChildren();\r\n//            dockItemList.forEach((obj)->{\r\n//                if(obj instanceof Icon){\r\n//                    ((Icon)obj).reset();\r\n//                }\r\n//            });\r\n            children.remove(tag);\r\n\r\n        });\r\n\r\n        container.setOnMouseMoved(mouseEvent -> {\r\n            double mouseContainerX=mouseEvent.getX();\r\n            double mouseContainerY=mouseEvent.getY();\r\n            ObservableList<Node> children= root.getChildren();\r\n\r\n            boolean selected = false;\r\n\r\n            for (DockItem item : dockItemList) {\r\n                if(item instanceof Icon){\r\n                    Node node = item.getNode();\r\n                    Bounds boundsInRoot = root.sceneToLocal(node.localToScene(node.getBoundsInLocal()));\r\n                    Bounds boundsInContainer=node.getBoundsInParent();\r\n\r\n//                    double distanceX = Math.min(Math.abs(mouseContainerX - boundsInContainer.getMinX()), Math.abs(mouseContainerX - boundsInContainer.getMaxX()));\r\n//                    System.out.println(distanceX);\r\n//                    double percentX = 1 - distanceX / 600;\r\n//                    ((Icon) item).update(percentX);\r\n\r\n                    // 当前选中\r\n                    if (boundsInContainer.contains(mouseContainerX, mouseContainerY)) {\r\n                        selected = true;\r\n\r\n                        if (!children.contains(tag)) {\r\n                            children.add(tag);\r\n                        }\r\n                        iconTag.setTag(((Icon) item).getTag());\r\n\r\n                        Bounds tagBounds = tag.getBoundsInLocal();\r\n                        tag.relocate(\r\n                                boundsInRoot.getMinX() + boundsInRoot.getWidth() / 2 - tagBounds.getWidth() / 2,\r\n                                boundsInRoot.getMinY() - tagBounds.getHeight()\r\n                        );\r\n                    }\r\n\r\n                    if (!selected) {\r\n                        children.remove(tag);\r\n                    }\r\n\r\n                }\r\n\r\n            }\r\n        });\r\n\r\n    }\r\n\r\n    public void setDockItem(List<DockItem> dockItemList){\r\n        this.dockItemList= dockItemList;\r\n        container.getChildren().addAll(dockItemList.stream().map(DockItem::getNode).collect(Collectors.toList()));\r\n    }\r\n\r\n    public static void addIcon(DockItem dockItem){\r\n        addIcon(Math.max(dockItemList.size(),0), dockItem);\r\n    }\r\n\r\n    public static void addIcon(int index, DockItem dockItem){\r\n        if(index<0)\r\n            index+=dockItemList.size()+1;\r\n        dockItemList.add(index,dockItem);\r\n        container.getChildren().add(index,dockItem.getNode());\r\n    }\r\n\r\n    private int draggedNodeIndex;\r\n    private double offsetX;\r\n    private Node draggedNode;\r\n\r\n    private void makeDraggable(Node node){\r\n        node.setOnMousePressed(mouseEvent -> {\r\n            offsetX=node.getLayoutX()- mouseEvent.getX();\r\n            var children=container.getChildren();\r\n            for(int i=0;i<children.size();i++){\r\n                if(children.get(i) ==node)\r\n                    draggedNodeIndex=i;\r\n            }\r\n        });\r\n        node.setOnDragDetected(mouseEvent -> {\r\n            node.startFullDrag();\r\n        });\r\n        node.setOnMouseDragged(mouseEvent -> {\r\n//            container.getChildren().remove(node);\r\n//            root.getChildren().add(node);\r\n            draggedNode=node;\r\n            node.setScaleY(0);\r\n            node.setStyle(\"-fx-background-color: pink;\");\r\n            node.setManaged(false);\r\n//            node.setLayoutX(offsetX+mouseEvent.getX());\r\n            node.relocate(mouseEvent.getX(),node.getLayoutY());\r\n        });\r\n        node.setOnMouseDragEntered(mouseEvent -> {\r\n            var children=container.getChildren();\r\n            int i;\r\n            for(i=0;i<children.size();i++){\r\n                if(children.get(i) ==node)\r\n                    break;\r\n            }\r\n            System.out.println(\"********\");\r\n//            children.add(i,draggedNode);\r\n            swapIcon(i,draggedNodeIndex);\r\n        });\r\n        node.setOnMouseDragReleased(mouseDragEvent -> {\r\n            System.out.println(\"noaidhgdf\");\r\n//            node.setManaged(true);\r\n        });\r\n    }\r\n\r\n    private void swapIcon(int index1,int index2){\r\n        Node node1=container.getChildren().get(index1);\r\n        Node node2=container.getChildren().get(index2);\r\n//        container.getChildren().remove(node2);\r\n//        container.getChildren().remove(node1);\r\n        Node temp=null;\r\n        container.getChildren().remove(node1);\r\n\r\n        container.getChildren().set(index2,node1);\r\n        container.getChildren().set(index1,node2);\r\n    }\r\n\r\n    public StackPane getRoot(){\r\n        return root;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/src/main/java/com/yingtai/dock/Dock.java b/Dock/src/main/java/com/yingtai/dock/Dock.java
+--- a/Dock/src/main/java/com/yingtai/dock/Dock.java	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/Dock/src/main/java/com/yingtai/dock/Dock.java	(date 1671300205219)
+@@ -90,10 +90,12 @@
+         root.getChildren().addAll(glass,container);
+ 
+         setEvent();
+-        Platform.runLater(()->{
+-            container.getChildren().forEach(this::makeDraggable);
+-        });
+-
++//        Platform.runLater(()->{
++//            container.getChildren().forEach((obj)->{
++//                makeDraggable((DockItem) obj);
++//            });
++//        });
++        makeDraggable();
+ 
+     }
+ 
+@@ -175,59 +177,64 @@
+         container.getChildren().add(index,dockItem.getNode());
+     }
+ 
+-    private int draggedNodeIndex;
+-    private double offsetX;
+-    private Node draggedNode;
++    private DockItem draggedNode;
++
++    private void makeDraggable(){
+ 
+-    private void makeDraggable(Node node){
+-        node.setOnMousePressed(mouseEvent -> {
+-            offsetX=node.getLayoutX()- mouseEvent.getX();
+-            var children=container.getChildren();
+-            for(int i=0;i<children.size();i++){
+-                if(children.get(i) ==node)
+-                    draggedNodeIndex=i;
++        container.setOnDragDetected(mouseEvent -> {
++            for (DockItem item : dockItemList) {
++                Node node = item.getNode();
++                Bounds boundsInRoot = root.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
++                Bounds boundsInContainer = node.getBoundsInParent();
++                if(boundsInContainer.contains(mouseEvent.getX(), mouseEvent.getY())){
++                    draggedNode=item;
++                    draggedNode.getNode().setOpacity(0.5);
++                }
++
+             }
+-        });
+-        node.setOnDragDetected(mouseEvent -> {
+-            node.startFullDrag();
+-        });
+-        node.setOnMouseDragged(mouseEvent -> {
+-//            container.getChildren().remove(node);
+-//            root.getChildren().add(node);
+-            draggedNode=node;
+-            node.setScaleY(0);
+-            node.setStyle("-fx-background-color: pink;");
+-            node.setManaged(false);
+-//            node.setLayoutX(offsetX+mouseEvent.getX());
+-            node.relocate(mouseEvent.getX(),node.getLayoutY());
++            container.startFullDrag();
+         });
+-        node.setOnMouseDragEntered(mouseEvent -> {
+-            var children=container.getChildren();
+-            int i;
+-            for(i=0;i<children.size();i++){
+-                if(children.get(i) ==node)
+-                    break;
++        container.setOnMouseDragged(mouseEvent -> {
++            for (DockItem item : dockItemList) {
++                Node node = item.getNode();
++                Bounds boundsInRoot = root.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
++                Bounds boundsInContainer = node.getBoundsInParent();
++                if(boundsInContainer.contains(mouseEvent.getX(), mouseEvent.getY())){
++                    swapNode(draggedNode,item);
++                }
++
+             }
+-            System.out.println("********");
+-//            children.add(i,draggedNode);
+-            swapIcon(i,draggedNodeIndex);
+         });
+-        node.setOnMouseDragReleased(mouseDragEvent -> {
+-            System.out.println("noaidhgdf");
+-//            node.setManaged(true);
++        container.setOnMouseDragReleased(mouseDragEvent -> {
++            draggedNode.getNode().setOpacity(1);
++            mouseDragEvent.consume();
+         });
+     }
+ 
+-    private void swapIcon(int index1,int index2){
+-        Node node1=container.getChildren().get(index1);
+-        Node node2=container.getChildren().get(index2);
+-//        container.getChildren().remove(node2);
+-//        container.getChildren().remove(node1);
+-        Node temp=null;
+-        container.getChildren().remove(node1);
++    private void swapNode(DockItem dockItem1,DockItem dockItem2){
++        if(dockItem1!=dockItem2) {
++            int index1 = dockItemList.indexOf(dockItem1);
++            int index2 = dockItemList.indexOf(dockItem2);
++            System.out.println(index1+" "+index2);
++            if(index1<0||index2<0) return;
++            dockItemList.remove(index1);
++            dockItemList.add(index1, dockItem2);
++            dockItemList.remove(index2);
++            dockItemList.add(index2, dockItem1);
+ 
+-        container.getChildren().set(index2,node1);
+-        container.getChildren().set(index1,node2);
++            Node node1=dockItem1.getNode();
++            Node node2=dockItem2.getNode();
++            var nodeList=container.getChildren();
++            nodeList.removeAll(node1,node2);
++            if(index1<index2){
++                nodeList.add(index1,node2);
++                nodeList.add(index2,node1);
++            }
++            else{
++                nodeList.add(index2,node1);
++                nodeList.add(index1,node2);
++            }
++        }
+     }
+ 
+     public StackPane getRoot(){
+Index: Dock/src/main/java/com/yingtai/dock/App.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yingtai.dock;\r\n\r\nimport com.kieferlam.javafxblur.Blur;\r\nimport javafx.application.Application;\r\nimport javafx.beans.InvalidationListener;\r\nimport javafx.beans.Observable;\r\nimport javafx.beans.value.ChangeListener;\r\nimport javafx.beans.value.ObservableValue;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.geometry.Insets;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.stage.Modality;\r\nimport javafx.stage.Screen;\r\nimport javafx.stage.Stage;\r\nimport javafx.stage.StageStyle;\r\n\r\nimport java.io.FileInputStream;\r\nimport java.io.FileNotFoundException;\r\nimport java.io.IOException;\r\nimport java.util.List;\r\nimport java.util.Stack;\r\nimport java.util.stream.Collectors;\r\nimport java.util.stream.IntStream;\r\n\r\npublic class App extends Application {\r\n\r\n    public static void main(String[] args) {\r\n        launch(args);\r\n    }\r\n\r\n    @Override\r\n    public void start(Stage primaryStage) throws IOException {\r\n        StackPane root=new StackPane();\r\n        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));\r\n//        root.setPadding(new Insets(10,10,10,10));\r\n        Dock dock=new Dock();\r\n        StackPane dockBar=dock.getRoot();\r\n        //得到Dock栏的StackPane\r\n        root.setAlignment(Pos.BOTTOM_CENTER);\r\n        root.getChildren().add(dockBar);\r\n\r\n        //文件路径可能需要修改\r\n//        primaryStage.getIcons().add(new Image(new FileInputStream(\"src/main/resources/com/yingtai/dock/img/应用图标.png\")));\r\n        Scene scene=new Scene(root);\r\n        scene.setFill(Color.TRANSPARENT);\r\n        primaryStage.setScene(scene);\r\n        primaryStage.initStyle(StageStyle.TRANSPARENT);\r\n//        primaryStage.initModality(Modality.APPLICATION_MODAL);\r\n        primaryStage.setAlwaysOnTop(true);\r\n\r\n        primaryStage.show();\r\n//        Blur.applyBlur(primaryStage,Blur.ACRYLIC);\r\n        primaryStage.setResizable(false);\r\n        primaryStage.setWidth(dockBar.widthProperty().get()+100);\r\n        primaryStage.setHeight(Parament.iconEnlargedWidth.get()+50);\r\n        primaryStage.setX(Screen.getPrimary().getBounds().getWidth()/2-primaryStage.getWidth()/2);\r\n        primaryStage.setY(Screen.getPrimary().getBounds().getHeight()-primaryStage.getHeight()-Parament.dockToBottom.doubleValue());\r\n        dockBar.widthProperty().addListener(new ChangeListener<Number>() {\r\n            @Override\r\n            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {\r\n                primaryStage.setWidth(t1.doubleValue()+100);\r\n                primaryStage.setX(Screen.getPrimary().getBounds().getWidth()/2-primaryStage.getWidth()/2);\r\n            }\r\n        });\r\n        Parament.dockToBottom.addListener(new InvalidationListener() {\r\n            @Override\r\n            public void invalidated(Observable observable) {\r\n                primaryStage.setY(Screen.getPrimary().getBounds().getHeight()-primaryStage.getHeight()-Parament.dockToBottom.doubleValue());\r\n            }\r\n        });\r\n        Parament.iconEnlargedWidth.addListener(new InvalidationListener() {\r\n            @Override\r\n            public void invalidated(Observable observable) {\r\n                primaryStage.setHeight(Parament.iconEnlargedWidth.get()+50);\r\n                primaryStage.setY(Screen.getPrimary().getBounds().getHeight()-primaryStage.getHeight()-Parament.dockToBottom.doubleValue());\r\n            }\r\n        });\r\n\r\n//        List<Icon> iconList= IntStream.range(1,8).mapToObj(it-> {\r\n//            try {\r\n//                return createIcon(\"你好\",it);\r\n//            } catch (FileNotFoundException e) {\r\n//                throw new RuntimeException(e);\r\n//            }\r\n//        }).collect(Collectors.toList());\r\n        dock.setDockItem(Config.readDockItemConfig());\r\n\r\n\r\n    }\r\n\r\n//    private Icon createIcon(String tag,int no) throws FileNotFoundException {\r\n//        Image image=new Image(new FileInputStream(\"src/main/resources/com/yingtai/dock/img/应用图标.png\"));\r\n////        System.out.println(\"shuchu\");\r\n//        return new Icon(tag,image);\r\n//\r\n//    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/src/main/java/com/yingtai/dock/App.java b/Dock/src/main/java/com/yingtai/dock/App.java
+--- a/Dock/src/main/java/com/yingtai/dock/App.java	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/Dock/src/main/java/com/yingtai/dock/App.java	(date 1671299912672)
+@@ -1,23 +1,34 @@
+ package com.yingtai.dock;
+ 
+-import com.kieferlam.javafxblur.Blur;
++//import com.kieferlam.javafxblur.Blur;
++import javafx.animation.KeyFrame;
++import javafx.animation.KeyValue;
++import javafx.animation.Timeline;
+ import javafx.application.Application;
++import javafx.application.Platform;
+ import javafx.beans.InvalidationListener;
+ import javafx.beans.Observable;
++import javafx.beans.property.DoubleProperty;
++import javafx.beans.property.SimpleDoubleProperty;
+ import javafx.beans.value.ChangeListener;
+ import javafx.beans.value.ObservableValue;
++import javafx.event.Event;
++import javafx.event.EventHandler;
++import javafx.event.EventType;
+ import javafx.fxml.FXMLLoader;
+ import javafx.geometry.Insets;
+ import javafx.geometry.Pos;
+ import javafx.scene.Node;
+ import javafx.scene.Scene;
+ import javafx.scene.image.Image;
++import javafx.scene.input.MouseEvent;
+ import javafx.scene.layout.*;
+ import javafx.scene.paint.Color;
+ import javafx.stage.Modality;
+ import javafx.stage.Screen;
+ import javafx.stage.Stage;
+ import javafx.stage.StageStyle;
++import javafx.util.Duration;
+ 
+ import java.io.FileInputStream;
+ import java.io.FileNotFoundException;
+@@ -29,6 +40,9 @@
+ 
+ public class App extends Application {
+ 
++    private long lastTime;
++    private boolean isHided;
++
+     public static void main(String[] args) {
+         launch(args);
+     }
+@@ -50,11 +64,9 @@
+         scene.setFill(Color.TRANSPARENT);
+         primaryStage.setScene(scene);
+         primaryStage.initStyle(StageStyle.TRANSPARENT);
+-//        primaryStage.initModality(Modality.APPLICATION_MODAL);
+         primaryStage.setAlwaysOnTop(true);
+ 
+         primaryStage.show();
+-//        Blur.applyBlur(primaryStage,Blur.ACRYLIC);
+         primaryStage.setResizable(false);
+         primaryStage.setWidth(dockBar.widthProperty().get()+100);
+         primaryStage.setHeight(Parament.iconEnlargedWidth.get()+50);
+@@ -81,16 +93,37 @@
+             }
+         });
+ 
+-//        List<Icon> iconList= IntStream.range(1,8).mapToObj(it-> {
+-//            try {
+-//                return createIcon("你好",it);
+-//            } catch (FileNotFoundException e) {
+-//                throw new RuntimeException(e);
++        dock.setDockItem(Config.readDockItemConfig());
++
++        lastTime=System.currentTimeMillis();
++        isHided=false;
++        scene.addEventHandler(MouseEvent.ANY, new EventHandler<MouseEvent>() {
++            @Override
++            public void handle(MouseEvent mouseEvent) {
++//                if(isHided){
++//                    setAutoHide(primaryStage,isHided);
++//                    isHided=false;
++//                }
++//                else if(System.currentTimeMillis()-lastTime>10){
++//                    setAutoHide(primaryStage,isHided);
++//                    isHided=true;
++//                }
++                lastTime=System.currentTimeMillis();
++            }
++        });
++//        Platform.runLater(()->{
++//            while(true){
++//                if(System.currentTimeMillis()-lastTime>10000){
++//                    setAutoHide(primaryStage,isHided);
++//                    isHided=true;
++//                }
++//                try {
++//                    Thread.sleep(2000);
++//                } catch (InterruptedException e) {
++//                    throw new RuntimeException(e);
++//                }
+ //            }
+-//        }).collect(Collectors.toList());
+-        dock.setDockItem(Config.readDockItemConfig());
+-
+-
++//        });
+     }
+ 
+ //    private Icon createIcon(String tag,int no) throws FileNotFoundException {
+@@ -99,6 +132,29 @@
+ //        return new Icon(tag,image);
+ //
+ //    }
++    private void setAutoHide(Stage stage,boolean isHided){
++        DoubleProperty stageY=new SimpleDoubleProperty(stage.getY());
++        if(!isHided){
+ 
++            Timeline timeLine=new Timeline(new KeyFrame(Duration.seconds(1),new KeyValue(stageY,Screen.getPrimary().getBounds().getHeight())));
++            stageY.addListener(new InvalidationListener() {
++                @Override
++                public void invalidated(Observable observable) {
++                    stage.setY(stageY.get());
++                }
++            });
++            timeLine.play();
++        }
++        else{
++            Timeline timeLine=new Timeline(new KeyFrame(Duration.seconds(1),new KeyValue(stageY,Parament.dockHeight+Parament.dockToBottom.get())));
++            stageY.addListener(new InvalidationListener() {
++                @Override
++                public void invalidated(Observable observable) {
++                    stage.setY(stageY.get());
++                }
++            });
++            timeLine.play();
++        }
++    }
+ 
+ }
+Index: Dock/src/main/java/com/yingtai/dock/Config.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yingtai.dock;\r\n\r\nimport javafx.collections.ObservableArray;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.scene.image.Image;\r\n\r\nimport java.io.*;\r\nimport java.util.ArrayList;\r\nimport java.util.Collection;\r\nimport java.util.List;\r\n\r\npublic class Config {\r\n    private static final String configIconPath=\"../config/icon.ini\";\r\n\r\n    public static List<DockItem> readDockItemConfig() {\r\n        List<DockItem> dockItemList=new ArrayList<>();\r\n        String fileName=configIconPath;\r\n        File file=new File(fileName);\r\n        if(!file.exists()||file.length()==0){\r\n            //默认图标文件\r\n            fileName=\"Dock/src/main/resources/com/yingtai/dock/config/icon.ini\";\r\n        }\r\n        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {\r\n            String line;\r\n            String tag=null;\r\n            String realPath=null;\r\n            int i=0;\r\n            while((line=bufferedReader.readLine())!=null){\r\n                if(line.startsWith(\"tag=\")){\r\n                    tag=line.substring(4);\r\n                }\r\n                else if(line.startsWith(\"realpath=\")){\r\n                    realPath=line.substring(9);\r\n                }\r\n                else if((line.startsWith(\"[icon\"))&&tag!=null&&realPath!=null){\r\n                    dockItemList.add(new Icon(tag,realPath,new Image(new FileInputStream(\"Dock/src/main/resources/com/yingtai/dock/img/\"+tag+\".png\"))));\r\n                    i++;\r\n                    System.out.println(i);\r\n                }\r\n                else if(line.startsWith(\"[separator\")){\r\n                    dockItemList.add(new Separator());\r\n                }\r\n\r\n            }\r\n            if(tag!=null&&realPath!=null){\r\n                dockItemList.add(new Icon(tag,realPath,new Image(new FileInputStream(\"Dock/src/main/resources/com/yingtai/dock/img/\"+tag+\".png\"))));\r\n            }\r\n            dockItemList.add(new Clock());\r\n            dockItemList.add(new LaunchPad());\r\n            return dockItemList;\r\n        } catch (FileNotFoundException e) {\r\n            throw new RuntimeException(e);\r\n        } catch (IOException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n    }\r\n\r\n    public static void renewIconConfig(List<Icon> iconList) {\r\n        File file=new File(configIconPath);\r\n        if(!file.exists()){\r\n            //目录不存在时无法直接创建文件\r\n            if(!file.getParentFile().exists()){\r\n                file.getParentFile().mkdirs();\r\n            }\r\n            try {\r\n                file.createNewFile();\r\n            } catch (IOException e) {\r\n                throw new RuntimeException(e);\r\n            }\r\n        }\r\n        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(configIconPath))) {\r\n            String line1=\"[icon\";\r\n            String line2=\"tag=\";\r\n            String line3=\"realpath=\";\r\n            int counter=1;\r\n            for(Icon icon:iconList){\r\n                bufferedWriter.write(line1+counter+\"]\");\r\n                bufferedWriter.newLine();\r\n                bufferedWriter.write(line2+icon.getTag());\r\n                bufferedWriter.newLine();\r\n                bufferedWriter.write(line3+icon.getRealPath());\r\n                bufferedWriter.newLine();\r\n                counter++;\r\n            }\r\n            System.out.println(\"配置文件已更新\");\r\n        } catch (IOException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/src/main/java/com/yingtai/dock/Config.java b/Dock/src/main/java/com/yingtai/dock/Config.java
+--- a/Dock/src/main/java/com/yingtai/dock/Config.java	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/Dock/src/main/java/com/yingtai/dock/Config.java	(date 1671291064008)
+@@ -47,6 +47,7 @@
+             }
+             dockItemList.add(new Clock());
+             dockItemList.add(new LaunchPad());
++//            dockItemList.add(new Icon());
+             return dockItemList;
+         } catch (FileNotFoundException e) {
+             throw new RuntimeException(e);
+Index: Dock/src/main/java/com/yingtai/dock/test2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/src/main/java/com/yingtai/dock/test2.java b/Dock/src/main/java/com/yingtai/dock/test2.java
+new file mode 100644
+--- /dev/null	(date 1671208481976)
++++ b/Dock/src/main/java/com/yingtai/dock/test2.java	(date 1671208481976)
+@@ -0,0 +1,105 @@
++package com.yingtai.dock;
++
++import com.jacob.activeX.ActiveXComponent;
++import com.jacob.com.ComThread;
++import com.jacob.com.Dispatch;
++import com.jacob.com.Variant;
++
++public class test2 {
++    public static void main(String[] args) {
++        test2 test=new test2();
++        test.testJacob();
++        test.icon();
++    }
++
++    /**
++     * 测试jacob组件
++     * 只作为测试jacob好用不好用
++     * 如果遇到报错则 检查jacob-1.18-x64.dll有没有放到C:\Windows\System32文件夹下
++     */
++    public void testJacob() {
++        ActiveXComponent xl = new ActiveXComponent("Excel.Application");
++        Dispatch xlo = xl.getObject();
++        try {
++            System.out.println("jacob's version="+xl.getProperty("Version"));
++            System.out.println("jacob's version="+Dispatch.get(xlo, "Version"));
++        } catch (Exception e) {
++            e.printStackTrace();
++        } finally {
++            xl.invoke("Quit", new Variant[] {});
++        }
++    }
++
++    /**
++     * 测试dll
++     */
++    public void icon() {
++        try {
++            // 启动jacob线程
++            ComThread.InitSTA();
++            // MyTest 是要调用方法的命名空间namespace
++            // TestClass 要调用方法的类名class
++            ActiveXComponent com = new ActiveXComponent("GetIcon.IconExtractor");
++            // Dispatch对象看成是对COM组件的对象
++            Dispatch dispatch = com.getObject();
++            //sum是MyTest.dll中的一个方法 后边是传入的参数
++            Dispatch.call(dispatch, "IconExtractor","D:\\Program Files (x86)\\360\\360zip\\360ExtLoader.exe");
++            var obj=Dispatch.call(dispatch, "GetIcon",0);
++            System.out.println(obj);
++//            Dispatch.call(dispatch, "IconExtractor","D:\\Program Files (x86)\\360\\360zip\\360ExtLoader.exe");
++//            //打印结果
++//            System.out.println("Dll返回的结果为"+ret.toString());
++        } catch (Exception e) {
++            e.printStackTrace();
++        } finally {
++            // 结束jacob所有线程
++            ComThread.Release();
++        }
++    }
++}
++//    var fileName = iconPickerDialog.FileName;
++//    var index = iconPickerDialog.IconIndex;
++//
++//txtFileName.Text = String.Format("{0}, {1}", fileName, index);
++//        Console.WriteLine(txtFileName.Text);
++//        Icon icon = null;
++//        Icon[] splitIcons = null;
++//        try
++//        {
++//        if (Path.GetExtension(iconPickerDialog.FileName).ToLower() == ".ico")
++//        {
++//        icon = new Icon(iconPickerDialog.FileName);
++//        }
++//        else
++//        {
++//        var extractor = new IconExtractor(fileName);
++//        icon = extractor.GetIcon(index);
++//        }
++//
++//        splitIcons = IconUtil.Split(icon);
++//        }
++//        catch (Exception ex)
++//        {
++//        MessageBox.Show(ex.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
++//        return;
++//        }
++//
++//        // Update icons.
++//
++//        Icon = icon;
++//        icon.Dispose();
++//
++//        lvwIcons.BeginUpdate();
++//        ClearAllIcons();
++//
++//        foreach (var i in splitIcons)
++//        {
++//        var item = new IconListViewItem();
++//        item.ToolTipText = String.Format(
++//        "{0}x{1}, {2}bits", i.Width, i.Height, IconUtil.GetBitCount(i));
++//        item.Icon = i;
++//
++//        lvwIcons.Items.Add(item);
++//        }
++//
++//        lvwIcons.EndUpdate();
+\ No newline at end of file
+Index: Dock/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>com.yingtai</groupId>\r\n    <artifactId>dock</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n    <name>dock</name>\r\n\r\n    <properties>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n        <junit.version>5.8.2</junit.version>\r\n    </properties>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-controls</artifactId>\r\n            <version>17.0.2</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-fxml</artifactId>\r\n            <version>17.0.2</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-api</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-engine</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.apache.maven.plugins</groupId>\r\n                <artifactId>maven-compiler-plugin</artifactId>\r\n                <version>3.10.1</version>\r\n                <configuration>\r\n                    <source>17</source>\r\n                    <target>17</target>\r\n                </configuration>\r\n            </plugin>\r\n            <plugin>\r\n                <groupId>org.openjfx</groupId>\r\n                <artifactId>javafx-maven-plugin</artifactId>\r\n                <version>0.0.8</version>\r\n                <executions>\r\n                    <execution>\r\n                        <!-- Default configuration for running with: mvn clean javafx:run -->\r\n                        <id>default-cli</id>\r\n                        <configuration>\r\n                            <mainClass>com.yingtai.dock/com.yingtai.dock.HelloApplication</mainClass>\r\n                            <launcher>app</launcher>\r\n                            <jlinkZipName>app</jlinkZipName>\r\n                            <jlinkImageName>app</jlinkImageName>\r\n                            <noManPages>true</noManPages>\r\n                            <stripDebug>true</stripDebug>\r\n                            <noHeaderFiles>true</noHeaderFiles>\r\n                        </configuration>\r\n                    </execution>\r\n                </executions>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dock/pom.xml b/Dock/pom.xml
+--- a/Dock/pom.xml	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/Dock/pom.xml	(date 1671206375732)
+@@ -38,6 +38,11 @@
+             <version>${junit.version}</version>
+             <scope>test</scope>
+         </dependency>
++        <dependency>
++            <groupId>com.hynnet</groupId>
++            <artifactId>jacob</artifactId>
++            <version>1.18</version>
++        </dependency>
+     </dependencies>
+ 
+     <build>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"a972d327-ed8a-4750-a6dc-0066f1cfdd33\" name=\"变更\" comment=\"改变了项目的结构，做了些没用的工作\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/DockItem.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/DockItem.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Icon.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Icon.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"JavaFXApplication\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2IGdGpFchJHrhYtBTNVZ0rx6Am1\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showExcludedFiles\" value=\"false\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;E:/JAVA/dock/Blur/native/Win10/x64/Release/javafxblur.dll&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.42643678&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;com.gitee.ui.GiteeSettingsConfigurable&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\JAVA\\dock\\JavaFX-Blur-master\\src\\main\\java\" />\r\n      <recent name=\"E:\\JAVA\\dock\\JavaFX-Blur-master\\src\\main\\java\\com\\kieferlam\\javafxblur\" />\r\n      <recent name=\"E:\\JAVA\\dock\" />\r\n      <recent name=\"E:\\JAVA\\dock\\src\\main\\resources\\com\\yingtai\\dock\\img\" />\r\n      <recent name=\"E:\\JAVA\\dock\\src\\main\\java\\com\\yingtai\\dock\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\JAVA\\dock\\Dock\" />\r\n      <recent name=\"E:\\JAVA\\dock\\Dock\\src\" />\r\n      <recent name=\"E:\\JAVA\\dock\\src\\main\\resources\\com\\yingtai\\dock\\img\" />\r\n      <recent name=\"E:\\JAVA\\dock\\src\\main\\resources\\com\\yingtai\\dock\" />\r\n      <recent name=\"E:\\JAVA\\dock\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.yingtai.dock\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"应用程序.com.yingtai.dock.Main\">\r\n    <configuration name=\"App\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.yingtai.dock.App\" />\r\n      <module name=\"Dock\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.yingtai.dock.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"main.java.com.yingtai.dock.Main\" />\r\n      <module name=\"Dock\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.java.com.yingtai.dock.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.yingtai.dock.Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.yingtai.dock.Main\" />\r\n      <module name=\"Dock\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.yingtai.dock.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"main.java.com.yingtai.dock.App\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"main.java.com.yingtai.dock.App\" />\r\n      <module name=\"Dock\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.java.com.yingtai.dock.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"test\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.yingtai.dock.test\" />\r\n      <module name=\"Dock\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.yingtai.dock.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"dock\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"dock\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"应用程序.com.yingtai.dock.Main\" />\r\n        <item itemvalue=\"应用程序.App\" />\r\n        <item itemvalue=\"应用程序.test\" />\r\n        <item itemvalue=\"应用程序.main.java.com.yingtai.dock.App\" />\r\n        <item itemvalue=\"应用程序.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"应用程序级\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"默认任务\">\r\n      <changelist id=\"a972d327-ed8a-4750-a6dc-0066f1cfdd33\" name=\"变更\" comment=\"\" />\r\n      <created>1669811761874</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669811761874</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"目前已完成部分\">\r\n      <created>1670580933122</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670580933122</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"测试\">\r\n      <created>1670583598148</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670583598148</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"测试\">\r\n      <created>1670583793428</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670583793428</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"测试\">\r\n      <created>1670584095688</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670584095688</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"添加了分隔符和分隔符的右键菜单\">\r\n      <created>1670757987847</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670757987847</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"添加了图标的右键菜单供YH大佬使用\">\r\n      <created>1670763259567</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670763259567</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"UnknownFeatures\">\r\n    <option featureType=\"com.intellij.fileTypeFactory\" implementationName=\"*.ini\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.History.Properties\">\r\n    <option name=\"COLUMN_ID_ORDER\">\r\n      <list>\r\n        <option value=\"Default.Root\" />\r\n        <option value=\"Default.Author\" />\r\n        <option value=\"Default.Date\" />\r\n        <option value=\"Default.Subject\" />\r\n        <option value=\"Space.CommitStatus\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"master\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                  <entry key=\"user\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"*\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"User\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"*\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"目前已完成部分\" />\r\n    <MESSAGE value=\"测试\" />\r\n    <MESSAGE value=\"添加了分隔符和分隔符的右键菜单\" />\r\n    <MESSAGE value=\"添加了图标的右键菜单供YH大佬使用\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"添加了图标的右键菜单供YH大佬使用\" />\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/dock$App.ic\" NAME=\"App 覆盖结果\" MODIFIED=\"1670518435839\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"idea\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\">\r\n      <FILTER>com.yingtai.dock.*</FILTER>\r\n    </SUITE>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/.idea/workspace.xml	(date 1671330602241)
+@@ -5,9 +5,20 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="a972d327-ed8a-4750-a6dc-0066f1cfdd33" name="变更" comment="改变了项目的结构，做了些没用的工作">
++      <change afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/test2.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Dock/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/App.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Config.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Dock.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Dock.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/DockItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/DockItem.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Icon.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Icon.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Separator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Separator.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/Blur/com/kieferlam/javafxblur/Blur.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/Blur/com/kieferlam/javafxblur/NativeBlur.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/Blur/module-info.class" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -18,8 +29,8 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="FxmlFile" />
+-        <option value="Class" />
+         <option value="JavaFXApplication" />
++        <option value="Class" />
+       </list>
+     </option>
+   </component>
+@@ -52,8 +63,8 @@
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;E:/JAVA/dock/Blur/native/Win10/x64/Release/javafxblur.dll&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/wang_/Desktop/jacob.jar&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;库&quot;,
+     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+     &quot;project.structure.side.proportion&quot;: &quot;0.42643678&quot;,
+     &quot;settings.editor.selected.configurable&quot;: &quot;com.gitee.ui.GiteeSettingsConfigurable&quot;
+@@ -78,10 +89,11 @@
+       <recent name="com.yingtai.dock" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="应用程序.com.yingtai.dock.Main">
++  <component name="RunManager" selected="应用程序.App">
+     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.App" />
+       <module name="Dock" />
++      <option name="VM_PARAMETERS" value="--module-path &quot;D:\Program Files\Java\javafx-sdk-19\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+       <extension name="coverage">
+         <pattern>
+           <option name="PATTERN" value="com.yingtai.dock.*" />
+@@ -92,12 +104,12 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="main.java.com.yingtai.dock.Main" />
++    <configuration name="com.yingtai.dock.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.Main" />
+       <module name="Dock" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="main.java.com.yingtai.dock.*" />
++          <option name="PATTERN" value="com.yingtai.dock.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -105,12 +117,12 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="com.yingtai.dock.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.Main" />
++    <configuration name="main.java.com.yingtai.dock.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="main.java.com.yingtai.dock.App" />
+       <module name="Dock" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="com.yingtai.dock.*" />
++          <option name="PATTERN" value="main.java.com.yingtai.dock.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -118,12 +130,12 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="main.java.com.yingtai.dock.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="main.java.com.yingtai.dock.App" />
++    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.test" />
+       <module name="Dock" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="main.java.com.yingtai.dock.*" />
++          <option name="PATTERN" value="com.yingtai.dock.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -131,8 +143,8 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.test" />
++    <configuration name="test2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.test2" />
+       <module name="Dock" />
+       <extension name="coverage">
+         <pattern>
+@@ -157,13 +169,20 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <recent_temporary>
+-      <list>
+-        <item itemvalue="应用程序.com.yingtai.dock.Main" />
++    <list>
++      <item itemvalue="应用程序.App" />
++      <item itemvalue="应用程序.com.yingtai.dock.Main" />
++      <item itemvalue="应用程序.main.java.com.yingtai.dock.App" />
++      <item itemvalue="应用程序.test2" />
++      <item itemvalue="应用程序.test" />
++    </list>
++    <recent_temporary>
++      <list>
+         <item itemvalue="应用程序.App" />
++        <item itemvalue="应用程序.test2" />
++        <item itemvalue="应用程序.com.yingtai.dock.Main" />
+         <item itemvalue="应用程序.test" />
+         <item itemvalue="应用程序.main.java.com.yingtai.dock.App" />
+-        <item itemvalue="应用程序.Main" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -218,7 +237,21 @@
+       <option name="project" value="LOCAL" />
+       <updated>1670763259567</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="改变了项目的结构，做了些没用的工作">
++      <created>1671096975980</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1671096975980</updated>
++    </task>
++    <task id="LOCAL-00008" summary="改变了项目的结构，做了些没用的工作">
++      <created>1671097145937</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1671097145937</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="UnknownFeatures">
+@@ -285,7 +318,8 @@
+     <MESSAGE value="测试" />
+     <MESSAGE value="添加了分隔符和分隔符的右键菜单" />
+     <MESSAGE value="添加了图标的右键菜单供YH大佬使用" />
+-    <option name="LAST_COMMIT_MESSAGE" value="添加了图标的右键菜单供YH大佬使用" />
++    <MESSAGE value="改变了项目的结构，做了些没用的工作" />
++    <option name="LAST_COMMIT_MESSAGE" value="改变了项目的结构，做了些没用的工作" />
+   </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+     <SUITE FILE_PATH="coverage/dock$App.ic" NAME="App 覆盖结果" MODIFIED="1670518435839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Encoding\">\r\n    <file url=\"file://$PROJECT_DIR$/Dock/src/main/java\" charset=\"UTF-8\" />\r\n    <file url=\"file://$PROJECT_DIR$/Dock/src/main/resources\" charset=\"UTF-8\" />\r\n    <file url=\"file://$PROJECT_DIR$/src/main/java\" charset=\"UTF-8\" />\r\n    <file url=\"file://$PROJECT_DIR$/src/main/resources\" charset=\"UTF-8\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+--- a/.idea/encodings.xml	(revision aeaee2a81f99868cb8a2e1dc5bec772190aa7068)
++++ b/.idea/encodings.xml	(date 1671289635137)
+@@ -3,7 +3,6 @@
+   <component name="Encoding">
+     <file url="file://$PROJECT_DIR$/Dock/src/main/java" charset="UTF-8" />
+     <file url="file://$PROJECT_DIR$/Dock/src/main/resources" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+   </component>
+ </project>
+\ No newline at end of file

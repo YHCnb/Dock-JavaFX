@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a972d327-ed8a-4750-a6dc-0066f1cfdd33" name="变更" comment="更新了设置界面和自动隐藏功能" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+        <option value="JavaFXApplication" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2IGdGpFchJHrhYtBTNVZ0rx6Am1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "E:/JAVA/dock/Dock/src/main/resources/com/yingtai/dock/img",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.42643678",
+    "settings.editor.selected.configurable": "settings.sync"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\JAVA\dock\Dock\src\main\resources\com\yingtai\dock\img" />
+      <recent name="D:\java\code\Dock-JavaFX2\Dock\src\main\resources\com\yingtai\dock\img" />
+      <recent name="D:\java\code\Dock-JavaFX2\Dock\src\main\java\tool" />
+      <recent name="E:\JAVA\dock\JavaFX-Blur-master\src\main\java" />
+      <recent name="E:\JAVA\dock\JavaFX-Blur-master\src\main\java\com\kieferlam\javafxblur" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\java\code\Dock-JavaFX2\Dock\src\main\java" />
+      <recent name="E:\JAVA\dock\Dock" />
+      <recent name="E:\JAVA\dock\Dock\src" />
+      <recent name="E:\JAVA\dock\src\main\resources\com\yingtai\dock\img" />
+      <recent name="E:\JAVA\dock\src\main\resources\com\yingtai\dock" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.yingtai.dock" />
+    </key>
+  </component>
+  <component name="RunManager" selected="应用程序.com.yingtai.dock.Main">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.App" />
+      <module name="Dock" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yingtai.dock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.com.yingtai.dock.Main" />
+      <module name="Dock" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.java.com.yingtai.dock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.yingtai.dock.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.Main" />
+      <module name="Dock" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yingtai.dock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main.java.com.yingtai.dock.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.com.yingtai.dock.App" />
+      <module name="Dock" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.java.com.yingtai.dock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.test" />
+      <module name="Dock" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yingtai.dock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="应用程序.Main" />
+      <item itemvalue="应用程序.App" />
+      <item itemvalue="应用程序.com.yingtai.dock.Main" />
+      <item itemvalue="应用程序.main.java.com.yingtai.dock.App" />
+      <item itemvalue="应用程序.test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="应用程序.com.yingtai.dock.Main" />
+        <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.test" />
+        <item itemvalue="应用程序.App" />
+        <item itemvalue="应用程序.main.java.com.yingtai.dock.App" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\wang_\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="a972d327-ed8a-4750-a6dc-0066f1cfdd33" name="变更" comment="" />
+      <created>1669811761874</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669811761874</updated>
+      <workItem from="1671202055283" duration="71000" />
+      <workItem from="1671202167681" duration="2081000" />
+      <workItem from="1671204307408" duration="477000" />
+      <workItem from="1671204816312" duration="147000" />
+      <workItem from="1671286603584" duration="3950000" />
+      <workItem from="1671290588810" duration="297000" />
+    </task>
+    <task id="LOCAL-00001" summary="目前已完成部分">
+      <created>1670580933122</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670580933122</updated>
+    </task>
+    <task id="LOCAL-00002" summary="测试">
+      <created>1670583598148</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670583598148</updated>
+    </task>
+    <task id="LOCAL-00003" summary="测试">
+      <created>1670583793428</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1670583793428</updated>
+    </task>
+    <task id="LOCAL-00004" summary="测试">
+      <created>1670584095688</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670584095688</updated>
+    </task>
+    <task id="LOCAL-00005" summary="添加了分隔符和分隔符的右键菜单">
+      <created>1670757987847</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670757987847</updated>
+    </task>
+    <task id="LOCAL-00006" summary="添加了图标的右键菜单供YH大佬使用">
+      <created>1670763259567</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1670763259567</updated>
+    </task>
+    <task id="LOCAL-00007" summary="求求别丢">
+      <created>1671203551846</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1671203551846</updated>
+    </task>
+    <task id="LOCAL-00008" summary="求求别丢">
+      <created>1671204863732</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1671204863732</updated>
+    </task>
+    <task id="LOCAL-00009" summary="TranCan Explorer">
+      <created>1671290563927</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1671290563927</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;Dock/src/main/java/com/yingtai/dock/Explorer.java">
+      <created>1671332145645</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1671332145645</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;Dock/src/main/java/com/yingtai/dock/Explorer.java">
+      <created>1671420250643</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1671420250643</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;Dock/src/main/java/com/yingtai/dock/Explorer.java">
+      <created>1671433277091</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1671433277091</updated>
+    </task>
+    <task id="LOCAL-00013" summary="更新了设置界面和自动隐藏功能">
+      <created>1671433588533</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1671433588533</updated>
+    </task>
+    <task id="LOCAL-00014" summary="更新了设置界面和自动隐藏功能">
+      <created>1671434555179</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1671434555179</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ini" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/新分支" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="目前已完成部分" />
+    <MESSAGE value="测试" />
+    <MESSAGE value="添加了分隔符和分隔符的右键菜单" />
+    <MESSAGE value="添加了图标的右键菜单供YH大佬使用" />
+    <MESSAGE value="求求别丢" />
+    <MESSAGE value="TranCan Explorer" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;Dock/src/main/java/com/yingtai/dock/Explorer.java" />
+    <MESSAGE value="更新了设置界面和自动隐藏功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新了设置界面和自动隐藏功能" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/dock$App.ic" NAME="App 覆盖结果" MODIFIED="1670518435839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.yingtai.dock.*</FILTER>
+    </SUITE>
+  </component>
+</project>
