@@ -146,12 +146,12 @@
       <recent name="com.yingtai.dock" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.com.yingtai.dock.Main">
+  <component name="RunManager" selected="应用程序.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.yingtai.dock.App" />
-      <module name="Dock" />
+      <module name="dock" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.yingtai.dock.*" />
@@ -223,10 +223,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.App" />
         <item itemvalue="应用程序.com.yingtai.dock.Main" />
         <item itemvalue="应用程序.Main" />
         <item itemvalue="应用程序.test" />
-        <item itemvalue="应用程序.App" />
         <item itemvalue="应用程序.main.java.com.yingtai.dock.App" />
       </list>
     </recent_temporary>
@@ -248,6 +248,7 @@
       <workItem from="1671204816312" duration="147000" />
       <workItem from="1671286603584" duration="3950000" />
       <workItem from="1671290588810" duration="297000" />
+      <workItem from="1671450780234" duration="41000" />
     </task>
     <task id="LOCAL-00001" summary="目前已完成部分">
       <created>1670580933122</created>
