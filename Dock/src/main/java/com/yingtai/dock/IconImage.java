@@ -11,21 +11,19 @@ public class IconImage {
     public static Image getIconImage(String realPath) throws IOException {
         String imgPath="Dock/src/main/resources/com/yingtai/dock/img/";
         new ProcessBuilder("Dock/src/main/resources/com/yingtai/dock/tool/IconExtractor.exe",realPath,imgPath).start();
-
         int end = realPath.length() - 1;
         while (realPath.charAt(end) != '.') end--;
         int start = end;
         while(realPath.charAt(start)!='\\'&&realPath.charAt(start)!='/') start--;
         String name = realPath.substring(start + 1, end);
 
-        String imgP=imgPath+name+".png";
-//        Image image = new Image(new FileInputStream(imgP));
-        Image image = new Image(new FileInputStream(imgP));
+        String imgP=imgPath+name+".ico";
+        Image image = new Image(new FileInputStream("Dock/src/main/resources/com/yingtai/dock/img/文件夹.png"));
         return image;
     }
 
     public static void main(String[] args) {
-        String realPath="D:\\steam\\steam.exe";
+        String realPath="D:\\腾讯会议\\WeMeet\\wemeetapp.exe";
         try {
             Image image = getIconImage(realPath);
 //            File f = new File("Dock/src/main/resources/com/yingtai/dock/img/test.png");
