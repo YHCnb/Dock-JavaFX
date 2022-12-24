@@ -1,6 +1,9 @@
 package com.yingtai.dock;
 
 //import com.kieferlam.javafxblur.Blur;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -27,21 +30,56 @@ import java.io.IOException;
 
 public class Separator extends DockItem{
     private Line line;
-
+    private static App app;
     public Separator(){
         line=new Line();
         root=new StackPane();
         root.setMaxSize(Region.USE_PREF_SIZE,Region.USE_PREF_SIZE);
         root.setAlignment(Pos.CENTER);
         root.getChildren().add(line);
-        root.setPadding(new Insets(0,20,0,20));
-        root.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE,null,null)));
+        int value= (int) Parament.iconSpacing.get();
+        if(value<5)
+            value=5;
+        root.setPadding(new Insets(0,value,10,value));
+        Parament.iconSpacing.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                int value= (int) Parament.iconSpacing.get();
+                if(value<5)
+                    value=5;
+                root.setPadding(new Insets(0,value,10,value));
+            }
+        });
+        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
 
         line.setStartX(0);
         line.setStartY(0);
         line.setEndX(0);
         line.endYProperty().bind(Parament.iconWidth);
-        line.setStrokeWidth(1.5);
+        line.setStrokeWidth(1);
+        Color color=Parament.glassColor.get();
+        int r,g,b;
+        if(color.getRed()*255<128) r=255;
+        else r=0;
+        if(color.getBlue()*255<128) b=255;
+        else b=0;
+        if(color.getGreen()*255<128) g=255;
+        else g=0;
+        line.setStroke(Color.rgb(r,g,b));
+        Parament.glassColor.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                Color color=Parament.glassColor.get();
+                int r,g,b;
+                if(color.getRed()*255<128) r=255;
+                else r=0;
+                if(color.getBlue()*255<128) b=255;
+                else b=0;
+                if(color.getGreen()*255<128) g=255;
+                else g=0;
+                line.setStroke(Color.rgb(r,g,b));
+            }
+        });
 
         //设置右键菜单
         root.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
@@ -66,8 +104,21 @@ public class Separator extends DockItem{
                         Dock.addIcon(-2,new Separator());
                     }
                 });
+                MenuItem menuItem2_1=new MenuItem("移除该分隔符");
+                menuItem2_1.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        Dock.removeIcon(root);
+                    }
+                });
                 MenuItem menuItemSep=new SeparatorMenuItem();
-                MenuItem menuItem3 = new MenuItem("隐藏显示任务栏");
+                MenuItem menuItem3 = new MenuItem("最小化");
+                menuItem3.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        app.getPrimaryStage().hide();
+                    }
+                });
                 MenuItem menuItem4 = new MenuItem("程序设置");
                 menuItem4.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -85,11 +136,11 @@ public class Separator extends DockItem{
                 menuItem5.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        System.exit(0);
+                        app.close();
                     }
                 });
 
-                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItemSep,menuItem3,menuItem4,menuItem5);
+                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem2_1,menuItemSep,menuItem3,menuItem4,menuItem5);
                 contextMenu.setAutoFix(true);
                 contextMenu.setStyle("-fx-background-radius: 0.5em;");
 
@@ -118,6 +169,7 @@ public class Separator extends DockItem{
         stage.setScene(scene);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("img/设置.png")));
         stage.setResizable(false);
+        stage.initOwner(app.getPrimaryStage());
         stage.show();
         settingController.setStyle();
         Parament.isHidable=false;
@@ -146,6 +198,7 @@ public class Separator extends DockItem{
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("img/默认应用图标.png")));
+        stage.initOwner(app.getPrimaryStage());
         stage.show();
         Parament.isHidable=false;
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -154,5 +207,9 @@ public class Separator extends DockItem{
                 Parament.isHidable=true;
             }
         });
+    }
+
+    public static void setApp(App app1){
+        app=app1;
     }
 }

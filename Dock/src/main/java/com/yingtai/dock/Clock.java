@@ -44,7 +44,7 @@ public class Clock extends Icon {
 
         new Thread(() -> {
             while (true) {
-                switch (Parament.dataModel.get()){
+                switch (Parament.dateModel.get()){
                     case 0:
                         tag = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy年MM月dd日EEEE"));
                         break;

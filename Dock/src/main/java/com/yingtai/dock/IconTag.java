@@ -43,7 +43,6 @@ public class IconTag {
                 else b=0;
                 if(color.getGreen()*255<128) g=255;
                 else g=0;
-                System.out.println(color.getRed()+" "+color.getGreen()+" "+color.getBlue());
                 label.setTextFill(Color.rgb(r,g,b));
             }
         });

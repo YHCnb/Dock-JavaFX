@@ -2,8 +2,6 @@ package com.yingtai.dock;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,8 +12,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorInput;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -34,11 +29,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.concurrent.Callable;
 
 public class SettingController {
     @FXML
@@ -322,9 +315,20 @@ public class SettingController {
         slider2.setShowTickMarks(true);
         slider2.setShowTickLabels(true);
 
-        Label label3=new Label("图标之间的距离");
+        Label label3=new Label("图标之间的距离   "+(int)Parament.iconSpacing.get());
         label3.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,15));
-        Slider slider3=new Slider(1,10,5);
+        Slider slider3=new Slider(0,20,Parament.iconSpacing.get());
+        slider3.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                    Parament.iconSpacing.setValue(slider3.getValue());
+                    label3.setText("图标之间的距离   "+(int)Parament.iconSpacing.get());
+            }
+        });
+        slider3.setMajorTickUnit(5);
+        slider3.setMinorTickCount(1);
+        slider3.setShowTickMarks(true);
+        slider3.setShowTickLabels(true);
 
         CheckBox checkBox1=new CheckBox();
         checkBox1.setText("开启鼠标滑过时动画");
@@ -396,7 +400,7 @@ public class SettingController {
         choiceBox.getSelectionModel().selectedIndexProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
-                Parament.dataModel.set(choiceBox.getSelectionModel().getSelectedIndex());
+                Parament.dateModel.set(choiceBox.getSelectionModel().getSelectedIndex());
             }
         });
 
@@ -419,7 +423,7 @@ public class SettingController {
                         "中国是世界四大文明古国之一。距今5800年前后，黄河、长江中下游以及西辽河等区域出现了文明起源迹象；距今5300年前后，中华大地各地区陆续进入了文明阶段；距今3800年前后，中原地区形成了更为成熟的文明形态，并向四方辐射文化影响力； [1]  后历经多次民族交融和朝代更迭，直至形成多民族国家的大一统局面。20世纪初辛亥革命后，废除了封建帝制，创立了资产阶级民主共和国。1949年中华人民共和国成立后，在中国大陆建立了人民民主专政的社会主义制度。");
                 text.setWrappingWidth(218);
                 text.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,13));
-                showSmallStage(text);
+                showSmallStage(text,stage);
             }
         });
         Button about2=new Button("捐赠支持");
@@ -429,7 +433,7 @@ public class SettingController {
                 ImageView imageView=new ImageView(new Image(getClass().getResourceAsStream("img/二维码.jpg")));
                 imageView.setFitHeight(230);
                 imageView.setFitWidth(230);
-                showSmallStage(imageView);
+                showSmallStage(imageView,stage);
             }
         });
         Button about3=new Button("访问Gitee");
@@ -453,7 +457,7 @@ public class SettingController {
                         "中国是世界四大文明古国之一。距今5800年前后，黄河、长江中下游以及西辽河等区域出现了文明起源迹象；距今5300年前后，中华大地各地区陆续进入了文明阶段；距今3800年前后，中原地区形成了更为成熟的文明形态，并向四方辐射文化影响力； [1]  后历经多次民族交融和朝代更迭，直至形成多民族国家的大一统局面。20世纪初辛亥革命后，废除了封建帝制，创立了资产阶级民主共和国。1949年中华人民共和国成立后，在中国大陆建立了人民民主专政的社会主义制度。");
                 text.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,13));
                 text.setWrappingWidth(218);
-                showSmallStage(text);
+                showSmallStage(text,stage);
             }
         });
         Text text2=new Text();
@@ -489,7 +493,7 @@ public class SettingController {
         rightVbox.getChildren().addAll(vBox);
     }
 
-    private void showSmallStage(Node node){
+    private void showSmallStage(Node node,Stage parentStage){
         Button button=new Button("确定");
         button.setPrefWidth(230);
         button.setFont(Font.font("微软雅黑",FontWeight.MEDIUM,15));
@@ -530,7 +534,8 @@ public class SettingController {
         stage.setHeight(300);
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(parentStage);
+        stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override

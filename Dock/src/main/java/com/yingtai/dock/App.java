@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.DoubleProperty;
@@ -11,6 +12,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.image.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,18 +25,22 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-import java.awt.MouseInfo;
-import java.awt.Point;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.time.LocalTime;
+import java.util.List;
 
 public class App extends Application {
     private long lastTime;
+    private Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,6 +48,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        this.primaryStage=primaryStage;
+        Separator.setApp(this);
+        Platform.setImplicitExit(false);
+
         StackPane root = new StackPane();
         root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
 
@@ -51,13 +61,24 @@ public class App extends Application {
         root.setAlignment(Pos.BOTTOM_CENTER);
         root.getChildren().add(dockBar);
 
-        primaryStage.getIcons().add(new Image(new FileInputStream("Dock/src/main/resources/com/yingtai/dock/img/本软件图标.png")));
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("img/本软件图标.png")));
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setAlwaysOnTop(true);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                close();
+            }
+        });
+        primaryStage.requestFocus();
         primaryStage.show();
+        Config.readSettingConfig();
+        dock.setDockItem(Config.readIconConfig());
+
+
         primaryStage.setResizable(false);
         primaryStage.setWidth(dockBar.widthProperty().get());
         primaryStage.setHeight(Parament.iconEnlargedWidth.get() + 50);
@@ -84,7 +105,7 @@ public class App extends Application {
             }
         });
 
-        dock.setDockItem(Config.readDockItemConfig());
+
 
         //region dock栏的自动隐藏
         lastTime=System.currentTimeMillis();
@@ -96,7 +117,6 @@ public class App extends Application {
                 }
             });
             while(true){
-                System.out.println(Parament.isHidable);
                 if(Parament.isHidable){
                     Point point=MouseInfo.getPointerInfo().getLocation();
                     if(System.currentTimeMillis()-lastTime>Parament.timeBeforeHiding.get()){
@@ -132,9 +152,47 @@ public class App extends Application {
         }).start();
         //endregion
 
+        //region 系统托盘 效果未达到预期目标已弃用
+//        Platform.setImplicitExit(false);
+//        SystemTray systemTray=SystemTray.getSystemTray();
+//        java.awt.Image image=Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("img/本软件图标20.png"));
+//        String str="DockByJavaFX";
+//        PopupMenu popupMenu=new PopupMenu();
+//        MenuItem item1=new MenuItem("最小化程序");
+//        MenuItem item2=new MenuItem("结束程序");
+//        popupMenu.add(item1);
+//        popupMenu.add(item2);
+//        TrayIcon trayIcon=new TrayIcon(image,str,popupMenu);
+//        try {
+//            systemTray.add(trayIcon);
+//        } catch (AWTException e) {
+//            throw new RuntimeException(e);
+//        }
+//        item1.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Platform.runLater(()->{
+//                    primaryStage.hide();
+//                });
+//            }
+//        });
+//        item2.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Config.renewSettingConfig();
+//                Platform.runLater(()->{
+//                    primaryStage.close();
+//                });
+//                System.exit(0);
+//            }
+//        });
+        //endregion
     }
 
     private void setAutoHide(Stage stage,boolean isHided){
+        if(stage==null){
+            return;
+        }
         if(!isHided){
             DoubleProperty stageY=new SimpleDoubleProperty(stage.getY());
             Timeline timeline=new Timeline(new KeyFrame(Duration.seconds(1),new KeyValue(stageY,Screen.getPrimary().getBounds().getHeight())));
@@ -160,4 +218,14 @@ public class App extends Application {
         }
     }
 
+    public void close(){
+        Config.renewIconConfig(Dock.dockItemList);
+        Config.renewSettingConfig();
+        primaryStage.close();
+        System.exit(0);
+    }
+
+    public Stage getPrimaryStage(){
+        return primaryStage;
+    }
 }

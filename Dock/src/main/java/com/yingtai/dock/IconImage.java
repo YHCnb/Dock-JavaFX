@@ -6,11 +6,13 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Path;
 
 public class IconImage {
     public static Image getIconImage(String realPath) throws IOException {
         String imgPath="Dock/src/main/resources/com/yingtai/dock/img/";
-        new ProcessBuilder("Dock/src/main/resources/com/yingtai/dock/tool/IconExtractor.exe",realPath,imgPath).start();
+        var obj=new ProcessBuilder("Dock/src/main/resources/com/yingtai/dock/tool/IconExtractor.exe",realPath,imgPath).start();
+        while(obj.isAlive());
         int end = realPath.length() - 1;
         while (realPath.charAt(end) != '.') end--;
         int start = end;
@@ -18,12 +20,13 @@ public class IconImage {
         String name = realPath.substring(start + 1, end);
 
         String imgP=imgPath+name+".ico";
-        Image image = new Image(new FileInputStream("Dock/src/main/resources/com/yingtai/dock/img/文件夹.png"));
+        Image image = new Image(IconImage.class.getResourceAsStream("img/Explorer.png"));
+
         return image;
     }
 
-    public static void main(String[] args) {
-        String realPath="D:\\腾讯会议\\WeMeet\\wemeetapp.exe";
+    public static void main(String[] args) throws InterruptedException {
+        String realPath="D:\\360极速浏览器X下载\\CLion-2022.2.3.exe";
         try {
             Image image = getIconImage(realPath);
 //            File f = new File("Dock/src/main/resources/com/yingtai/dock/img/test.png");

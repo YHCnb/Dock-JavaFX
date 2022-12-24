@@ -35,7 +35,7 @@ public class Dock {
     private StackPane root;
     private static HBox container;
     private Rectangle glass;
-    private static List<DockItem> dockItemList;
+    public static List<DockItem> dockItemList;
 
     public Dock(){
         root=new StackPane();
@@ -53,10 +53,10 @@ public class Dock {
 
         //region 玻璃板
         glass=new Rectangle();
-        glass.setX(root.getPadding().getLeft()-Parament.iconSpacing);
+        glass.setX(root.getPadding().getLeft()-Parament.iconSpacing.get());
         glass.yProperty().bind(root.heightProperty().subtract(glass.heightProperty()).subtract(root.getPadding().getBottom()));
-        glass.widthProperty().bind(container.widthProperty().add(Parament.iconSpacing*2));
-        glass.heightProperty().bind(Parament.iconWidth.add(Parament.iconSpacing*2));
+        glass.widthProperty().bind(container.widthProperty().add(Parament.iconSpacing.get()*2));
+        glass.heightProperty().bind(Parament.iconWidth.add(Parament.iconSpacing.get()*2));
         glass.setManaged(false);
         glass.fillProperty().bind(Parament.glassColor);
         glass.arcWidthProperty().bind(Parament.dockArcWidth);
@@ -166,6 +166,10 @@ public class Dock {
         container.getChildren().addAll(dockItemList.stream().map(DockItem::getNode).toList());
     }
 
+    public List<DockItem> getDockItemList(){
+        return dockItemList;
+    }
+
     public static void addIcon(DockItem dockItem){
         addIcon(Math.max(dockItemList.size(),0), dockItem);
     }
@@ -175,6 +179,12 @@ public class Dock {
             index+=dockItemList.size()+1;
         dockItemList.add(index,dockItem);
         container.getChildren().add(index,dockItem.getNode());
+    }
+
+    public static void removeIcon(Node node){
+        int index=container.getChildren().indexOf(node);
+        container.getChildren().remove(node);
+        dockItemList.remove(index);
     }
 
     private DockItem draggedNode;
@@ -236,7 +246,6 @@ public class Dock {
             }
         }
     }
-
     public StackPane getRoot(){
         return root;
     }
