@@ -4,78 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a972d327-ed8a-4750-a6dc-0066f1cfdd33" name="变更" comment="Icon">
+    <list default="true" id="a972d327-ed8a-4750-a6dc-0066f1cfdd33" name="变更" comment="本次修改改进了分隔符，完善了设置部分的最后一点空缺内容，完成了读取配置文件和读取图标文件的内容">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Clock.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Clock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Dock.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Dock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/DockItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/DockItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dock/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/AddIconController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/AddIconController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/IconImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/IconImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/IconTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/IconTag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Parament.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Parament.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Separator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/Separator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/SettingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/resources/com/yingtai/dock/config/cun.text" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/resources/com/yingtai/dock/config/icon.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/resources/com/yingtai/dock/config/icon.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/resources/com/yingtai/dock/config/launchpad.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Clock.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Clock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Config.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Dock.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Dock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/DockItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/DockItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dock/src/main/resources/com/yingtai/dock/addIcon-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/resources/com/yingtai/dock/addIcon-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$9.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconImage.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconImage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconTag$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconTag$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconTag$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconTag$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconTag.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconTag.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Parament.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Parament.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$1$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$1$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$1$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/Separator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$18.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$19.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$20.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$20.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$21.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$21.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$22.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$22.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$23.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$23.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$24.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$24.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$25.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$25.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/SettingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/addIcon-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/addIcon-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/config/icon.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/config/icon.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/config/launchpad.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/AppTools/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/AppTools/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,24 +70,24 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/JAVA/dock/Dock/src/main/resources/com/yingtai/dock/tool&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.42643678&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "E:/JAVA/dock/Dock/lib/image4j-0.7.2.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.42643678",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\JAVA\dock\Dock\src\main\resources\com\yingtai\dock\tool" />
@@ -379,7 +318,21 @@
       <option name="project" value="LOCAL" />
       <updated>1671439251984</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="本次修改改进了分隔符，完善了设置部分的最后一点空缺内容，完成了读取配置文件和读取图标文件的内容">
+      <created>1671848258874</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1671848258874</updated>
+    </task>
+    <task id="LOCAL-00017" summary="本次修改改进了分隔符，完善了设置部分的最后一点空缺内容，完成了读取配置文件和读取图标文件的内容">
+      <created>1671848366205</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1671848366205</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -446,7 +399,8 @@
     <MESSAGE value="TranCan Explorer" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;Dock/src/main/java/com/yingtai/dock/Explorer.java" />
     <MESSAGE value="更新了设置界面和自动隐藏功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新了设置界面和自动隐藏功能" />
+    <MESSAGE value="本次修改改进了分隔符，完善了设置部分的最后一点空缺内容，完成了读取配置文件和读取图标文件的内容" />
+    <option name="LAST_COMMIT_MESSAGE" value="本次修改改进了分隔符，完善了设置部分的最后一点空缺内容，完成了读取配置文件和读取图标文件的内容" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/dock$App.ic" NAME="App 覆盖结果" MODIFIED="1670518435839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

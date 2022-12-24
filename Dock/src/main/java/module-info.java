@@ -5,6 +5,7 @@ module com.yingtai.dock {
 
     requires java.datatransfer;
     requires java.desktop;
+    requires image4j;
 
     opens com.yingtai.dock to javafx.fxml;
     exports com.yingtai.dock;

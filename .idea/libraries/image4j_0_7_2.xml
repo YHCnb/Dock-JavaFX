@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="image4j-0.7.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Dock/lib/image4j-0.7.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

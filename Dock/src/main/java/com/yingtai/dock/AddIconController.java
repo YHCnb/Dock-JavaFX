@@ -15,7 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.*;
 import javafx.scene.image.*;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
@@ -56,7 +58,7 @@ public class AddIconController {
     private double offsetY;
 
     public AddIconController() throws IOException {
-        iconFile=Path.of("Dock/src/main/resources/com/yingtai/dock/img/默认应用图标.png").toFile();
+        iconFile=new File(this.getClass().getResource("img/默认应用图标.png").toString());
     }
 
     public void setStyle() throws FileNotFoundException {
@@ -112,11 +114,12 @@ public class AddIconController {
         else b=0;
         if(color.getGreen()*255<128) g=255;
         else g=0;
-        System.out.println(color.getRed()+" "+color.getGreen()+" "+color.getBlue());
+//        System.out.println(color.getRed()+" "+color.getGreen()+" "+color.getBlue());
         leftLabel.setTextFill(Color.rgb(r,g,b));
         rightLabel1.setTextFill(Color.rgb(r,g,b));
         rightLabel2.setTextFill(Color.rgb(r,g,b));
         root.setBackground(new Background(new BackgroundFill(Parament.glassColor.get(),new CornerRadii(10),null)));
+        root.setBorder(new Border(new BorderStroke(Color.GRAY,BorderStrokeStyle.SOLID,new CornerRadii(10),new BorderWidths(1))));
         Parament.glassColor.addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -202,7 +205,7 @@ public class AddIconController {
         leftLabel.setAlignment(Pos.CENTER);
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
-        imageView.setImage(new Image(new FileInputStream(iconFile)));
+        imageView.setImage(new Image(this.getClass().getResourceAsStream("img/默认应用图标.png")));
         leftVBox.setAlignment(Pos.CENTER);
         leftLabel.setFont(Font.font("微软雅黑", FontWeight.MEDIUM,12));
         leftVBox.setSpacing(5);
@@ -245,6 +248,37 @@ public class AddIconController {
     }
 
     public void setEvent(){
+        root.setOnDragOver(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != root
+                        && event.getDragboard().hasFiles()) {
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+                event.consume();
+            }
+        });
+
+        root.setOnDragDropped(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                var db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+//                    dropped.setText(db.getFiles().toString());
+                    pathToIcon(db.getFiles().get(0));
+                    success = true;
+                }
+
+                event.setDropCompleted(success);
+
+                event.consume();
+            }
+        });
+
+
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMouseEntered(mouseEvent -> {
             Effect effect=new Glow();
@@ -262,8 +296,7 @@ public class AddIconController {
                         new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                         new FileChooser.ExtensionFilter("GIF", "*.gif"),
                         new FileChooser.ExtensionFilter("BMP", "*.bmp"),
-                        new FileChooser.ExtensionFilter("PNG", "*.png"),
-                        new FileChooser.ExtensionFilter("ICO","*.ico")
+                        new FileChooser.ExtensionFilter("PNG", "*.png")
                 );
                 fileChooser.setTitle("选择图片");
                 iconFile=fileChooser.showOpenDialog(stage);
@@ -282,10 +315,7 @@ public class AddIconController {
                 DirectoryChooser directoryChooser=new DirectoryChooser();
                 fileChooser.setTitle("选择文件");
                 pathFile= fileChooser.showOpenDialog(stage);
-                if(pathFile!=null){
-                    rightTextField1.setText(pathFile.getName());
-                    rightTextField2.setText(pathFile.getAbsolutePath());
-                }
+                pathToIcon(pathFile);
             }
         });
 
@@ -300,14 +330,10 @@ public class AddIconController {
         rightButton32.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                try {
-                    String tag=rightTextField1.getText();
-                    String realPath=rightTextField2.getText();
-                    if(iconFile!=null&&tag!=null&&tag.length()!=0&&realPath!=null&&realPath.length()!=0)
-                        Dock.addIcon(new Icon(rightTextField1.getText(),rightTextField2.getText(),new Image(new FileInputStream(iconFile))));
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
+                String tag=rightTextField1.getText();
+                String realPath=rightTextField2.getText();
+                if(iconFile!=null&&tag!=null&&tag.length()!=0&&realPath!=null&&realPath.length()!=0)
+                    Dock.addIcon(new Icon(rightTextField1.getText(),rightTextField2.getText(),imageView.getImage()));
                 stage.close();
             }
         });
@@ -315,5 +341,18 @@ public class AddIconController {
 
     public void setStage(Stage stage){
         this.stage=stage;
+    }
+
+    private void pathToIcon(File pathFile){
+        if(pathFile!=null){
+            rightTextField1.setText(pathFile.getName().substring(0,pathFile.getName().length()-4));
+            rightTextField2.setText(pathFile.getAbsolutePath());
+            System.out.println(pathFile.getAbsolutePath());
+            Image newImage=IconImage.getIconImage(pathFile.getAbsolutePath());
+            if(newImage.isError()){
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("img/默认应用图标.png")));
+            }
+            else imageView.setImage(IconImage.getIconImage(pathFile.getAbsolutePath()));
+        }
     }
 }

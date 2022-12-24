@@ -19,7 +19,7 @@
             <VBox prefHeight="300" prefWidth="300" fx:id="leftVBox">
                <children>
                   <ImageView fitHeight="200" fitWidth="200" pickOnBounds="true" preserveRatio="true" fx:id="imageView"/>
-                  <Label text="单击以更换图标图片" fx:id="leftLabel"/>
+                  <Label text="可将程序（exe、lnk）拖动到此处" fx:id="leftLabel"/>
                </children>
             </VBox>
             <VBox prefHeight="300" prefWidth="300" fx:id="rightVBox">
