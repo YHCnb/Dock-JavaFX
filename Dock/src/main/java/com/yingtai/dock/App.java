@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class App extends Application {
@@ -75,20 +76,21 @@ public class App extends Application {
         });
         primaryStage.requestFocus();
         primaryStage.show();
+//        root.setPadding(new Insets(0,50,0,50));
         Config.readSettingConfig();
         dock.setDockItem(Config.readIconConfig());
 
 
         primaryStage.setResizable(false);
         primaryStage.setWidth(dockBar.widthProperty().get());
-        primaryStage.setHeight(Parament.iconEnlargedWidth.get() + 50);
+        primaryStage.setHeight(350);
         primaryStage.setX(Screen.getPrimary().getBounds().getWidth() / 2 - primaryStage.getWidth() / 2);
         primaryStage.setY(Screen.getPrimary().getBounds().getHeight() - primaryStage.getHeight() - Parament.dockToBottom.doubleValue());
         dockBar.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                primaryStage.setWidth(t1.doubleValue() + 100);
-                primaryStage.setX(Screen.getPrimary().getBounds().getWidth() / 2 - primaryStage.getWidth() / 2);
+                primaryStage.setWidth(t1.doubleValue()+100);
+                primaryStage.setX(Screen.getPrimary().getBounds().getWidth() / 2 -primaryStage.getWidth()/ 2);
             }
         });
         Parament.dockToBottom.addListener(new InvalidationListener() {
@@ -97,13 +99,13 @@ public class App extends Application {
                 primaryStage.setY(Screen.getPrimary().getBounds().getHeight() - primaryStage.getHeight() - Parament.dockToBottom.doubleValue());
             }
         });
-        Parament.iconEnlargedWidth.addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                primaryStage.setHeight(Parament.iconEnlargedWidth.get() + 50);
-                primaryStage.setY(Screen.getPrimary().getBounds().getHeight() - primaryStage.getHeight() - Parament.dockToBottom.doubleValue());
-            }
-        });
+//        Parament.iconEnlargedWidth.addListener(new InvalidationListener() {
+//            @Override
+//            public void invalidated(Observable observable) {
+//                primaryStage.setHeight(Parament.iconEnlargedWidth.get() + 50);
+//                primaryStage.setY(Screen.getPrimary().getBounds().getHeight() - primaryStage.getHeight() - Parament.dockToBottom.doubleValue());
+//            }
+//        });
 
 
 
@@ -189,7 +191,7 @@ public class App extends Application {
         //endregion
     }
 
-    private void setAutoHide(Stage stage,boolean isHided){
+    public void setAutoHide(Stage stage,boolean isHided){
         if(stage==null){
             return;
         }

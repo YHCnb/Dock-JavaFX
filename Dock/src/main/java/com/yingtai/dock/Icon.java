@@ -33,7 +33,8 @@ public class Icon extends DockItem{
     private String realPath;
     protected String tag;
     protected StackPane root;
-    protected BooleanProperty isOpened;
+    protected BooleanProperty isOpenedAndShown;
+    protected boolean isOpenedAndHided;
     protected Group group;
 
     public Icon(){
@@ -43,18 +44,51 @@ public class Icon extends DockItem{
         root.setAlignment(Pos.BOTTOM_CENTER);
         root.setCursor(Cursor.HAND);
 
-        root.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,new BorderWidths(2))));
+//        root.setBorder(new Border(new BorderStroke(Color.TRANSPARENT,null,null,new BorderWidths(2))));
 
-        root.setPadding(new Insets(15,5,10,5));
+        root.setPadding(new Insets(10,Parament.iconSpacing.get()/2,10,Parament.iconSpacing.get()/2));
+        Parament.iconSpacing.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                root.setPadding(new Insets(10,Parament.iconSpacing.get()/2,10,Parament.iconSpacing.get()/2));
+            }
+        });
 
         //region 程序打开圆点标志
-        isOpened=new SimpleBooleanProperty(false);
+        isOpenedAndShown =new SimpleBooleanProperty(false);
+        isOpenedAndHided=false;
         Circle dot=new Circle(Parament.iconOpenedDot);
-        dot.setFill(Color.rgb(0,0,0,0.8));
-        dot.setTranslateY(5);
-//        dot.setStroke(Color.rgb(255,255,255,0.4));
-        dot.visibleProperty().bind(isOpened);
+
+        dot.setTranslateY(8);
+        dot.setStroke(Color.rgb(255,255,255,0.4));
+        Color color=Parament.glassColor.get();
+        int r,g,b;
+        if(color.getRed()*255<128) r=255;
+        else r=0;
+        if(color.getBlue()*255<128) b=255;
+        else b=0;
+        if(color.getGreen()*255<128) g=255;
+        else g=0;
+        dot.setFill(Color.rgb(r,g,b));
+        Parament.glassColor.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                Color color=Parament.glassColor.get();
+                int r,g,b;
+                if(color.getRed()*255<128) r=255;
+                else r=0;
+                if(color.getBlue()*255<128) b=255;
+                else b=0;
+                if(color.getGreen()*255<128) g=255;
+                else g=0;
+                dot.setFill(Color.rgb(r,g,b));
+            }
+        });
+        dot.visibleProperty().bind(isOpenedAndShown);
         //endregion
+
+        group.setScaleX(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
+        group.setScaleY(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
         Parament.iconWidth.addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -62,11 +96,16 @@ public class Icon extends DockItem{
                 group.setScaleY(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
             }
         });
-        group.setScaleX(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
-        group.setScaleY(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
+        Parament.iconEnlargedWidth.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                group.setScaleX(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
+                group.setScaleY(Parament.iconWidth.get()/Parament.iconEnlargedWidth.get());
+            }
+        });
 
-        //嵌套两层group即可实现动画效果
-        root.getChildren().addAll(new Group(group),dot);
+        //嵌套两层group即可实现动画效果 圆点已弃用
+        root.getChildren().addAll(new Group(group));
 
     }
     public Icon(String tag, String realPath, Image image){
@@ -77,6 +116,7 @@ public class Icon extends DockItem{
         group.getChildren().add(imageView);
         imageView.fitWidthProperty().bind(Parament.iconEnlargedWidth);
         imageView.fitHeightProperty().bind(Parament.iconEnlargedWidth);
+        imageView.setSmooth(true);
 
 
         //region 设置图标圆角
@@ -99,7 +139,8 @@ public class Icon extends DockItem{
             }
         }
         imageView.setOnMousePressed(mouseEvent -> {
-            imageView.setImage(writableImageImage);
+                imageView.setImage(writableImageImage);
+//            mouseEvent.consume();
         });
         imageView.setOnMouseReleased(mouseEvent -> {
             imageView.setImage(image);
@@ -109,18 +150,24 @@ public class Icon extends DockItem{
         //region 设置图标点击事件
         imageView.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton()== MouseButton.PRIMARY){
-                if(isOpened.getValue()){
+                System.out.println(isOpenedAndShown.getValue());
+                if(isOpenedAndHided&&isOpenedAndShown.get()){//打开程序且隐藏
                     show();
+                    isOpenedAndHided=false;
+                    isOpenedAndShown.setValue(true);
                 }
-                else{
-                    //程序未打开，打开程序
-                    new Thread(()->{
-                        run();
-                        System.out.println("程序已打开");
-                    }).run();
-                    isOpened.setValue(true);
+                else if(!isOpenedAndHided&&isOpenedAndShown.get()){//打开程序且未隐藏
+                    hide();
+                    isOpenedAndHided=true;
+                    isOpenedAndShown.setValue(false);
+                }
+                else{//未打开程序
+                    run();
+                    isOpenedAndShown.setValue(true);
+                    isOpenedAndHided=false;
                 }
             }
+            imageView.setImage(image);
         });
         //endregion
 
@@ -152,7 +199,7 @@ public class Icon extends DockItem{
                 menuItem2.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        //要做的事情
+                        Dock.removeIcon(root);
                     }
                 });
                 menuItem3.setOnAction(new EventHandler<ActionEvent>() {
@@ -180,7 +227,7 @@ public class Icon extends DockItem{
                             runInManagerMode();
                             System.out.println("程序已以管理员模式打开");
                         }).run();
-                        isOpened.setValue(true);
+                        isOpenedAndShown.setValue(true);
                     }
                 });
                 menuItem6.setOnAction(new EventHandler<ActionEvent>() {
@@ -190,7 +237,7 @@ public class Icon extends DockItem{
                             quit();
                             System.out.println("程序退出");
                         }).run();
-                        isOpened.setValue(false);
+                        isOpenedAndShown.setValue(false);
                     }
                 });
                 menuItem7.setOnAction(new EventHandler<ActionEvent>() {
@@ -200,11 +247,11 @@ public class Icon extends DockItem{
                             run();
                             System.out.println("程序已打开");
                         }).run();
-                        isOpened.setValue(true);
+                        isOpenedAndShown.setValue(true);
                     }
                 });
 
-                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItemSep,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7);
+                contextMenu.getItems().addAll(menuItem2,menuItemSep,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7);
                 contextMenu.setAutoFix(true);
                 contextMenu.setStyle("-fx-background-radius: 0.5em;");
 
@@ -216,15 +263,13 @@ public class Icon extends DockItem{
     }
 
     public void update(double percent) {
-        if (percent < 0) {
-            reset();
-            return;
+        if (percent < Parament.iconWidth.get()/Parament.iconEnlargedWidth.get()) {
+            percent=Parament.iconWidth.get()/Parament.iconEnlargedWidth.get();
         } else if (percent > 1) {
             percent = 1;
         }
-        double scale = (1+percent)*Parament.iconWidth.get()/Parament.iconEnlargedWidth.get();
-        group.setScaleX(scale);
-        group.setScaleY(scale);
+        group.setScaleX(percent);
+        group.setScaleY(percent);
     }
 
     public void reset(){
@@ -245,7 +290,7 @@ public class Icon extends DockItem{
     }
 
     public void runInManagerMode(){//以管理者模式运行
-        if(isOpened.getValue()) return;
+        if(isOpenedAndShown.getValue()) return;
         File file=new File(realPath);
         if(!file.isFile()){
             System.out.println("这不是一个有效的文件！！！！");//可以加提醒框
@@ -261,16 +306,15 @@ public class Icon extends DockItem{
             list.add("\"" + file.getPath() + "\"");
             ProcessBuilder pBuilder = new ProcessBuilder(list);
             pBuilder.start();
-            isOpened=new SimpleBooleanProperty(true);
+            isOpenedAndShown =new SimpleBooleanProperty(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public void run(){//一般形式运行
-        if(isOpened.getValue()) return;
+//        if(isOpenedAndShown.getValue()) return;
         try {
             new ProcessBuilder(realPath).start();
-            isOpened=new SimpleBooleanProperty(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -298,22 +342,22 @@ public class Icon extends DockItem{
     }
 
     public void quit(){//退出已经打开的程序
-        if(!isOpened.getValue()) return;
+        if(!isOpenedAndShown.getValue()) return;
         TaskControler.killTask(tag);
-        isOpened=new SimpleBooleanProperty(false);
+        isOpenedAndShown =new SimpleBooleanProperty(false);
     }
 
     public void reload(){//重启程序
-        if (isOpened.getValue()){
+        if (isOpenedAndShown.getValue()){
             this.quit();
             this.run();
         }else {
-            isOpened=new SimpleBooleanProperty(true);
+            isOpenedAndShown =new SimpleBooleanProperty(true);
             this.run();
         }
     }
     public void hide(){//
-        if(isOpened.getValue()){
+        if(isOpenedAndShown.getValue()){
 //            try {
 //                String s=tag+".exe";
 //                String path="src/main/java/com/yingtai/tool/hide.exe";
@@ -329,7 +373,7 @@ public class Icon extends DockItem{
 //            }
             try {
                 String s=tag+".exe";
-                new ProcessBuilder("Dock/src/main/resources/com/yingtai/dock/tool/hide.exe",s).start();
+                new ProcessBuilder("config/tool/hide.exe",s).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -337,7 +381,7 @@ public class Icon extends DockItem{
     }
 
     public void show(){//
-        if(isOpened.getValue()){
+        if(isOpenedAndShown.getValue()){
             run();
         }
     }

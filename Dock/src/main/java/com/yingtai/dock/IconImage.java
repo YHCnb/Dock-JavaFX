@@ -6,7 +6,9 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URLConnection;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.sf.image4j.codec.ico.ICODecoder;
 
@@ -14,7 +16,7 @@ import javax.imageio.ImageIO;
 
 public class IconImage {
     public static Image getIconImage(String realPath) {
-        String imgPath = "../config/img/";
+        String imgPath = "config/img/";
         File file = new File(imgPath);
         if (!file.exists()) {
             file.mkdirs();
@@ -41,7 +43,8 @@ public class IconImage {
             realPath=lnkToRealPath(realPath);
             Process obj = null;
             try {
-                obj = new ProcessBuilder(IconImage.class.getResource("tool/IconExtractor.exe").getPath(), realPath, imgPath).start();
+                obj = new ProcessBuilder("config/tool/IconExtractor.exe", realPath, imgPath).start();
+//                System.out.println(IconImage.class.getResource("tool/IconExtractor.exe").getPath());
             } catch (IOException e) {
                 System.out.println("IconExtractor异常");
                 throw new RuntimeException(e);
@@ -74,7 +77,7 @@ public class IconImage {
         else if(suffix.equals(".exe")){
             Process obj = null;
             try {
-                obj = new ProcessBuilder(IconImage.class.getResource("tool/IconExtractor.exe").getPath(), realPath, imgPath).start();
+                obj = new ProcessBuilder("config/tool/IconExtractor.exe", realPath, imgPath).start();
             } catch (IOException e) {
                 System.out.println("IconExtractor异常");
                 throw new RuntimeException(e);

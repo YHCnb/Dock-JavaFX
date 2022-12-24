@@ -25,20 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Explorer extends Icon{
-    private String tag ;
-    public String getTag() {
-        return tag;
-    }
-
     public Explorer() throws FileNotFoundException {
         super();
         tag="仿达";
 
-        Image image =new Image(new FileInputStream(new File("Dock/src/main/resources/com/yingtai/dock/img/Explorer.png")));
+        Image image =new Image(this.getClass().getResourceAsStream("img/Explorer.png"));
         ImageView imageView=new ImageView(image);
         group.getChildren().add(imageView);
-        imageView.fitWidthProperty().bind(Parament.iconWidth.multiply(Parament.iconEnlargeScale));
-        imageView.fitHeightProperty().bind(Parament.iconWidth.multiply(Parament.iconEnlargeScale));
+        imageView.fitWidthProperty().bind(Parament.iconEnlargedWidth);
+        imageView.fitHeightProperty().bind(Parament.iconEnlargedWidth);
 
 
 //        region 设置图标按压时变暗特性
@@ -66,7 +61,6 @@ public class Explorer extends Icon{
                     run();
                     System.out.println("程序已打开");
                 }).run();
-                isOpened.setValue(true);
             }
         });
         //setRightButtonMenu
@@ -76,8 +70,7 @@ public class Explorer extends Icon{
                 ContextMenu contextMenu=new ContextMenu();
                 MenuItem menuItem1 = new MenuItem("新建仿达窗口");
                 MenuItem menuItem2 = new MenuItem("前往文件夹");
-                MenuItem menuItemSep=new SeparatorMenuItem();
-                MenuItem menuItem3 = new MenuItem("设置此图标");
+                MenuItem menuItem3 = new MenuItem("打开开始菜单");
                 menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
@@ -99,11 +92,13 @@ public class Explorer extends Icon{
                 menuItem3.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        //设置图标
+                        Robot robot=new Robot();
+                        robot.keyPress(KeyCode.WINDOWS);
+                        robot.keyRelease(KeyCode.WINDOWS);
                     }
                 });
 
-                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItemSep,menuItem3);
+                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3);
                 contextMenu.setAutoFix(true);
                 contextMenu.setStyle("-fx-background-radius: 0.5em;");
 
@@ -121,14 +116,7 @@ public class Explorer extends Icon{
 
     public void run(){//与其他图标不同，可以通过新建仿达窗口打开多个explorer
         try {
-//            List<String> list = new ArrayList<String>();
-//            list.add("cmd.exe");
-//            list.add("/c");
-//            list.add("explorer");
-//            ProcessBuilder pBuilder = new ProcessBuilder(list);
-//            pBuilder.start();
             new ProcessBuilder("explorer").start();
-            isOpened=new SimpleBooleanProperty(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,7 +129,7 @@ public class Explorer extends Icon{
 //        robot.keyRelease(KeyCode.R);//释放Win R
 //        robot.keyRelease(KeyCode.WINDOWS);
         try {
-            new ProcessBuilder("Dock/src/main/resources/com/yingtai/dock/tool/run.exe").start();
+            new ProcessBuilder("config/tool/run.exe").start();
         } catch (IOException e) {
             e.printStackTrace();
         }

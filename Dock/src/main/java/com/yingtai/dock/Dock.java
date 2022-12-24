@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,6 +20,8 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
@@ -87,6 +90,7 @@ public class Dock {
         //endregion
 
         root.getChildren().addAll(glass,container);
+//        container.setMouseTransparent(true);
 
         setEvent();
         makeDraggable();
@@ -117,9 +121,9 @@ public class Dock {
             ObservableList<Node> children= root.getChildren();
 
             boolean selected = false;
-            double k,c;
-            c=1.3;
-            k=(1-c+Math.sqrt(5-2*c))/(0.5*c+1);
+            double k;
+            //比例系数，根据情况调节
+            k=0.17;
             for (DockItem item : dockItemList) {
                 if(item instanceof Icon){
                     Node node = item.getNode();
@@ -129,10 +133,10 @@ public class Dock {
                     if(Parament.isIconAnimation.get()){
                         double distanceX=Math.abs(mouseContainerX - boundsInContainer.getCenterX());
 //                        double distanceX = Math.min(Math.abs(mouseContainerX - boundsInContainer.getMinX()), Math.abs(mouseContainerX - boundsInContainer.getMaxX()));
-                        System.out.println(distanceX);
+//                        System.out.println(distanceX);
                         double percentX = 1 - distanceX*k/Parament.iconEnlargedWidth.get();
                         ((Icon) item).update(percentX);
-                        System.out.println("*********"+k);
+//                        System.out.println("*********"+k);
                     }
 
                     if(Parament.isIconTag.get()){
@@ -190,35 +194,59 @@ public class Dock {
     private DockItem draggedNode;
 
     private void makeDraggable(){
+        container.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                for (DockItem item : dockItemList) {
+                    Node node = item.getNode();
+                    Bounds boundsInRoot = root.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
+                    Bounds boundsInContainer = node.getBoundsInParent();
+                    if(boundsInContainer.contains(mouseEvent.getX(), mouseEvent.getY())){
+                        draggedNode=item;
+//                        draggedNode.getNode().setOpacity(0.5);
+                    }
 
-        container.setOnDragDetected(mouseEvent -> {
-            for (DockItem item : dockItemList) {
-                Node node = item.getNode();
-                Bounds boundsInRoot = root.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
-                Bounds boundsInContainer = node.getBoundsInParent();
-                if(boundsInContainer.contains(mouseEvent.getX(), mouseEvent.getY())){
-                    draggedNode=item;
-                    draggedNode.getNode().setOpacity(0.5);
                 }
-
-            }
-            container.startFullDrag();
-        });
-        container.setOnMouseDragged(mouseEvent -> {
-            for (DockItem item : dockItemList) {
-                Node node = item.getNode();
-                Bounds boundsInRoot = root.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
-                Bounds boundsInContainer = node.getBoundsInParent();
-                if(boundsInContainer.contains(mouseEvent.getX(), mouseEvent.getY())){
-                    swapNode(draggedNode,item);
-                }
-
+                mouseEvent.consume();
             }
         });
-        container.setOnMouseDragReleased(mouseDragEvent -> {
-            draggedNode.getNode().setOpacity(1);
-            mouseDragEvent.consume();
+
+//        container.setOnDragDetected(mouseEvent -> {
+//
+//        });
+        container.addEventFilter(MouseEvent.DRAG_DETECTED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                container.startFullDrag();
+//                mouseEvent.consume();
+            }
         });
+
+        container.addEventFilter(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                draggedNode.getNode().setOpacity(0.5);
+                for (DockItem item : dockItemList) {
+                    Node node = item.getNode();
+                    Bounds boundsInRoot = root.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
+                    Bounds boundsInContainer = node.getBoundsInParent();
+                    if(boundsInContainer.contains(mouseEvent.getX(), mouseEvent.getY())){
+                        Platform.runLater(()->{
+                            swapNode(draggedNode,item);
+                        });
+                    }
+
+                }
+//                mouseEvent.consume();
+            }
+        });
+        container.addEventFilter(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                draggedNode.getNode().setOpacity(1);
+            }
+        });
+
     }
 
     private void swapNode(DockItem dockItem1,DockItem dockItem2){
@@ -234,6 +262,7 @@ public class Dock {
 
             Node node1=dockItem1.getNode();
             Node node2=dockItem2.getNode();
+
             var nodeList=container.getChildren();
             nodeList.removeAll(node1,node2);
             if(index1<index2){
@@ -244,6 +273,7 @@ public class Dock {
                 nodeList.add(index2,node1);
                 nodeList.add(index1,node2);
             }
+
         }
     }
     public StackPane getRoot(){

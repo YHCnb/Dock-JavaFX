@@ -11,18 +11,24 @@ import java.util.Collection;
 import java.util.List;
 
 public class Config {
-    private static final String configIconPath="../config/icon.ini";
-    private static final String configSettingPath="../config/config.ini";
+    private static final String configIconPath="config/icon.ini";
+    private static final String configSettingPath="config/config.ini";
 
     public static List<DockItem> readIconConfig() {
         List<DockItem> dockItemList=new ArrayList<>();
-        String fileName=configIconPath;
-        File file=new File(fileName);
-        if(!file.exists()||file.length()==0){
+        File file=new File(configIconPath);
+
+        InputStream inputStream=Config.class.getResourceAsStream("config/icon.ini");
+        if(file.exists()&&file.length()!=0){
             //默认图标文件
-            fileName=Config.class.getResource("config/icon.ini").getPath();
+            try {
+                inputStream=new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+
             String line;
             String tag=null;
             String realPath=null;
@@ -50,6 +56,10 @@ public class Config {
                     dockItemList.add(new Separator());
                 }
             }
+            if(inputStream!=null){
+                inputStream.close();
+            }
+
             return dockItemList;
         } catch (IOException e) {
             throw new RuntimeException(e);

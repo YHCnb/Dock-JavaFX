@@ -27,14 +27,14 @@ public class TrashCan extends Icon {
         super();
         tag = "废纸篓";
 
-        Image image =new Image(new FileInputStream(new File("Dock/src/main/resources/com/yingtai/dock/img/回收站.png")));
+        Image image =new Image(this.getClass().getResourceAsStream("img/回收站.png"));
         ImageView imageView=new ImageView(image);
         group.getChildren().add(imageView);
-        imageView.fitWidthProperty().bind(Parament.iconWidth.multiply(Parament.iconEnlargeScale));
-        imageView.fitHeightProperty().bind(Parament.iconWidth.multiply(Parament.iconEnlargeScale));
+        imageView.fitWidthProperty().bind(Parament.iconEnlargedWidth);
+        imageView.fitHeightProperty().bind(Parament.iconEnlargedWidth);
 
 
-//        region 设置图标按压时变暗特性
+        //region 设置图标按压时变暗特性
         int width=(int)image.getWidth();
         int height=(int)image.getHeight();
         WritableImage writableImageImage=new WritableImage(width, height);
@@ -56,9 +56,7 @@ public class TrashCan extends Icon {
             if(mouseEvent.getButton()== MouseButton.PRIMARY){
                 new Thread(()->{
                     run();
-                    System.out.println("程序已打开");
                 }).run();
-                isOpened.setValue(true);
             }
         });
         //setRightButtonMenu
@@ -66,8 +64,9 @@ public class TrashCan extends Icon {
             @Override
             public void handle(ContextMenuEvent contextMenuEvent) {
                 ContextMenu contextMenu=new ContextMenu();
-                MenuItem menuItem1 = new MenuItem("打开");
-                MenuItem menuItem2 = new MenuItem("设置此图标");
+                MenuItem menuItem1 = new MenuItem("打开回收站");
+                MenuItem menuItemSep_=new SeparatorMenuItem();
+                MenuItem menuItem2 = new MenuItem("添加分隔符");
                 MenuItem menuItemSep=new SeparatorMenuItem();
                 MenuItem menuItem3 = new MenuItem("倾倒废纸篓");
                 menuItem1.setOnAction(new EventHandler<ActionEvent>() {
@@ -79,7 +78,7 @@ public class TrashCan extends Icon {
                 menuItem2.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        //要做的事情
+                        Dock.addIcon(-1,new Separator());
                     }
                 });
                 menuItem3.setOnAction(new EventHandler<ActionEvent>() {
@@ -89,7 +88,7 @@ public class TrashCan extends Icon {
                     }
                 });
 
-                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItemSep,menuItem3);
+                contextMenu.getItems().addAll(menuItem1,menuItemSep_,menuItem2,menuItemSep,menuItem3);
                 contextMenu.setAutoFix(true);
                 contextMenu.setStyle("-fx-background-radius: 0.5em;");
 
@@ -115,7 +114,7 @@ public class TrashCan extends Icon {
 
     public void cleanUp() {//清空回收站，有一点瑕疵（会有弹窗出现）
         try {
-            new ProcessBuilder("Dock/src/main/resources/com/yingtai/dock/tool/clean.exe").start();
+            new ProcessBuilder("config/tool/clean.exe").start();
         } catch (IOException e) {
             e.printStackTrace();
         }

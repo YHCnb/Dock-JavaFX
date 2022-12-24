@@ -1,6 +1,5 @@
 package com.yingtai.dock;
 
-//import com.kieferlam.javafxblur.Blur;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -112,11 +111,11 @@ public class Separator extends DockItem{
                     }
                 });
                 MenuItem menuItemSep=new SeparatorMenuItem();
-                MenuItem menuItem3 = new MenuItem("最小化");
+                MenuItem menuItem3 = new MenuItem("隐藏Dock栏");
                 menuItem3.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        app.getPrimaryStage().hide();
+                        app.setAutoHide(app.getPrimaryStage(),false);
                     }
                 });
                 MenuItem menuItem4 = new MenuItem("程序设置");
