@@ -345,9 +345,20 @@ public class AddIconController {
 
     private void pathToIcon(File pathFile){
         if(pathFile!=null){
-            rightTextField1.setText(pathFile.getName().substring(0,pathFile.getName().length()-4));
-            rightTextField2.setText(pathFile.getAbsolutePath());
-            System.out.println(pathFile.getAbsolutePath());
+            if(pathFile.isFile()){
+                rightTextField1.setText(pathFile.getName().substring(0,pathFile.getName().length()-4));
+            }
+            else{
+                rightTextField1.setText(pathFile.getName());
+            }
+            if(pathFile.getPath().substring(pathFile.getPath().length()-4,pathFile.getPath().length()).equals(".lnk")){
+                rightTextField2.setText(IconImage.lnkToRealPath(pathFile.getAbsolutePath()));
+                pathFile=new File(IconImage.lnkToRealPath(pathFile.getAbsolutePath()));
+            }
+            else{
+                rightTextField2.setText(pathFile.getAbsolutePath());
+            }
+
             Image newImage=IconImage.getIconImage(pathFile.getAbsolutePath());
             if(newImage.isError()){
                 imageView.setImage(new Image(this.getClass().getResourceAsStream("img/默认应用图标.png")));

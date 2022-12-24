@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a972d327-ed8a-4750-a6dc-0066f1cfdd33" name="变更" comment="本次修改改进了分隔符，完善了设置部分的最后一点空缺内容，完成了读取配置文件和读取图标文件的内容">
+    <list default="true" id="a972d327-ed8a-4750-a6dc-0066f1cfdd33" name="变更" comment="添加了拖动添加图标事件">
+      <change afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/WindowsShortcut.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/AddIconController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/AddIconController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/IconImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/com/yingtai/dock/IconImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/src/main/resources/com/yingtai/dock/addIcon-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/src/main/resources/com/yingtai/dock/addIcon-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/AddIconController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconImage.class" beforeDir="false" afterPath="$PROJECT_DIR$/Dock/target/classes/com/yingtai/dock/IconImage.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +21,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="JavaFXApplication" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -85,7 +81,7 @@
     "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.42643678",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+    "settings.editor.selected.configurable": "File.Encoding"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -332,7 +328,28 @@
       <option name="project" value="LOCAL" />
       <updated>1671848366205</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="添加了拖动添加图标事件">
+      <created>1671861311248</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1671861311248</updated>
+    </task>
+    <task id="LOCAL-00019" summary="添加了拖动添加图标事件">
+      <created>1671861372599</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1671861372599</updated>
+    </task>
+    <task id="LOCAL-00020" summary="添加了拖动添加图标事件">
+      <created>1671861380578</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1671861380578</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,7 +417,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;Dock/src/main/java/com/yingtai/dock/Explorer.java" />
     <MESSAGE value="更新了设置界面和自动隐藏功能" />
     <MESSAGE value="本次修改改进了分隔符，完善了设置部分的最后一点空缺内容，完成了读取配置文件和读取图标文件的内容" />
-    <option name="LAST_COMMIT_MESSAGE" value="本次修改改进了分隔符，完善了设置部分的最后一点空缺内容，完成了读取配置文件和读取图标文件的内容" />
+    <MESSAGE value="添加了拖动添加图标事件" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加了拖动添加图标事件" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/dock$App.ic" NAME="App 覆盖结果" MODIFIED="1670518435839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
